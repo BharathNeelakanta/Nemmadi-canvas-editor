@@ -1,0 +1,63 @@
+{
+  "TEXT": [
+    {
+      "name": "Text",
+      "description": "",
+      "type": "text",
+      "icon": {
+        "prefix": "fas",
+        "name": "font"
+      },
+      "option": {
+        "type": "textbox",
+        "text": "",
+        "width": 60,
+        "height": 30,
+        "fontSize": 32,
+        "name": "New text"
+      }
+    }
+  ],
+  "DRAWING": [
+    {
+      "name": "Interior",
+      "description": "",
+      "type": "drawing",
+      "icon": {
+        "prefix": "fas",
+        "name": "minus"
+      },
+      "option": {
+        "type": "line",
+        "name": "Interior Line"
+      }
+    },
+
+    {
+      "name": "Partition",
+      "description": "",
+      "type": "drawing",
+      "icon": {
+        "prefix": "fas",
+        "name": "minus"
+      },
+      "option": {
+        "type": "dottedline",
+        "name": "Partition Line"
+      }
+    },
+    {
+      "name": "Exterior",
+      "description": "",
+      "type": "drawing",
+      "icon": {
+        "prefix": "fas",
+        "name": "minus"
+      },
+      "option": {
+        "type": "partition",
+        "name": "Exterior Line"
+      }
+    }
+  ]
+}
