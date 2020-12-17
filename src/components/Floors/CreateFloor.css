@@ -1,0 +1,44 @@
+.activated-bg a.active{
+    color: #075BD8;
+    padding-bottom: 17px;
+    border-bottom: 3px solid;
+}
+.addfloor-btn{
+    background-color: #075bd8;
+    color: #fff;
+    font-family: rubikMedium !important; 
+    padding:7px 22px;
+    border-radius: 5px;
+    border:none
+}
+body{
+    background: #fff!important;
+    overflow-y: scroll!important;
+}
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: transparent;
+  }
+  ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+  }
+  ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  }
+  ul.breadcrumb li a {
+    text-decoration: none;
+  }
+  .table td{
+    font-size: 12px;
+}
+.table td a{
+    font-size:12px
+}
+  .image{
+      background-color: black;
+      width:10px
+  }

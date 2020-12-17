@@ -1,0 +1,74 @@
+.create_proj label{
+    position: relative;
+    top: 16px;
+    color: #95999c;
+    background: #fff;
+    left: 11px;
+}
+.create_proj .second label{
+    font-size: 13px;
+}
+.create_proj .label-success {
+    background-color: #104bef;
+}
+.create_proj .btn-primary {
+    color: #ffffff;
+    background-color: #104bef;
+    border-color: #104bef;
+}
+.create_proj .btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+    background: transparent;
+    padding: 7px 20px;
+}
+.create_proj .btn-primary{
+    padding: 7px 20px;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus
+.create_proj .btn-outline-primary:hover {
+    outline: none;
+}
+.create_proj .btn-primary:hover,.create_proj .btn-primary:focus {
+    color: #ffffff;
+    background-color: #104befcc;
+    border-color: #104befcc;
+}
+.table_div{
+    height: 185px;
+    overflow-y: scroll;
+}
+.table_div table thead{
+    border-bottom: 2px solid #000;
+}
+.add_prop{
+    cursor: pointer;
+}
+.createProject  select{
+    height: 46px;
+}
+.createProject .btn.btn-primary{
+    color: #fff;
+    background-color: #075bd9;
+    border-color: #075bd9;
+}
+.createProject .table_div table{
+    font-size: 13px;
+}
+.createProject .table_div table tr{
+    padding: 10px 5px;
+}
+.createProject .table_div table th{
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #fff;
+}
+/* table th{
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: #fff;
+} */

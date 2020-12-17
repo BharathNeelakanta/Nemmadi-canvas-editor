@@ -1,0 +1,166 @@
+.login-section .col-md-4{
+    margin-top: 120px;
+    padding: 50px;
+}
+.login-section .row{
+    margin: 0;
+}
+.title{
+    font-family: rubikMedium !important; 
+    display: inline;
+}
+.logo{
+    margin-top: -8px;
+}
+h4{
+    /* font-family: rubikMedium !important;  */
+    margin-top: 24px !important;
+}
+
+.login-section .col-lg-12 , .login-section .col-lg-8 {
+    padding-right: 0px;
+}
+
+form{
+    margin-top: 35px;
+}
+#togglePassword{
+    float: right;
+    margin-right: 17px;
+    margin-top: -29px;
+    position: relative;
+    z-index: 2;
+}
+ul li{
+    list-style: none;
+}
+.login-btn{
+    width: 100%;
+    background-color: #1161DA !important;
+}
+.login-form .form-group>input{
+    color: #707070;
+    padding: 22px;
+}
+.login-form .form-group>label{
+    position: relative;
+    color: #2A2A2A;
+    font-size: 14px;
+    font-family: rubiklight;
+    bottom: 61px;
+    background-color: white;
+    order: -1;
+    left: 18px;
+    transition: all 0.3s ease-in;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+/* .login-form input:focus + label {
+    transform: translateY(2px);
+}   */
+
+.main-img{
+    width: 100%;
+    height: 655px;
+}
+.place{
+    position: absolute;
+    left:20px
+}
+.login{
+    color: #707070;
+    padding: 10px;
+    width:340px;
+    border-radius: 5px;
+border:1px solid black;
+
+} 
+.invite{
+    padding: 5px 40px;
+    background-color: #1161DA ;
+    color:#ffffff;
+    border-radius: 5px;
+}
+.people{
+    font-weight: 500;
+    font-size: 24px;
+    color: #000000;
+
+}
+.errorMsg{
+    position: absolute;
+}
+.dropdown-menu {
+    width: 185px;
+    position: absolute;
+    left: -119px;
+    top: 55px;
+}
+.key_img {
+    width: 29px;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.login_img {
+    width: 29px;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+.dropdown-menu li a:hover{
+    color:#000!important;
+    }
+ .bell_img {
+        width: 25px;
+        margin-top: 10px;
+    }
+   .fa-bell-o{
+        font-family:'FontAwesome';
+font-size:22px;
+    }
+    .notification-item p {
+        padding: 10px 0 0 0;
+    }
+    
+    .notification-item .title {
+        font-weight: bold;
+    }
+    
+    .notification-item .date {
+        float: right;
+        color: #0e7e9b;
+    }
+    
+    .notification_dropdown hr {
+        margin-bottom: 0;
+    }
+    .noti_img img {
+        width: 58px;
+    }
+    
+    .notification-item {
+        width: 106%;
+        margin-left: -10px;
+    }
+    .notification-item:nth-child(odd) {
+        background-color: #f1ecec;
+    }
+    
+    .notification_dropdown.employee {
+        margin-left: 128px;
+        margin-top: 5px;
+    }
+    .imge-fluid{
+        width:62%
+    }
+    .form-control:focus{
+        box-shadow: none;
+    }
+.login-form input:focus~label,
+.login-form input:valid~label {
+    top: -78px;
+    font-size: 14px;
+    /* color: #0056dc; */
+    background: #fff;
+    margin: 0 7px;
+}

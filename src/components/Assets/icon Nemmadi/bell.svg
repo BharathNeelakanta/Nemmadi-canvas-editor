@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23.273" height="21.938" viewBox="0 0 23.273 21.938">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Clip_2" data-name="Clip 2" d="M0,0H15.7V20.764H0Z" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="notification" transform="translate(13553 -3486.359)">
+    <g id="icons8-appointment_reminders" transform="translate(-13553 3487.533)">
+      <path id="Clip_2-2" data-name="Clip 2" d="M0,0H15.7V20.764H0Z" fill="none"/>
+      <g id="icons8-appointment_reminders-2" data-name="icons8-appointment_reminders" clip-path="url(#clip-path)">
+        <path id="Fill_1" data-name="Fill 1" d="M7.9,20.765a1.486,1.486,0,1,1,0-2.967H0V16.314H.007a1.251,1.251,0,0,0,1.339-.71,2.168,2.168,0,0,0,.233-.8V8.9A6.012,6.012,0,0,1,6.317,3.175V1.483A1.535,1.535,0,0,1,7.9,0,1.535,1.535,0,0,1,9.474,1.483V3.175A6.013,6.013,0,0,1,14.213,8.9v5.939a1.987,1.987,0,0,0,.2.782c.2.38.447.695,1.376.695V17.8H7.9a1.486,1.486,0,1,1,0,2.967Zm0-16.315A4.605,4.605,0,0,0,3.158,8.9v5.957a3.506,3.506,0,0,1-.408,1.43.115.115,0,0,0-.024.029h10.3a.119.119,0,0,0-.013-.024A.141.141,0,0,1,13,16.269a3.263,3.263,0,0,1-.369-1.443V8.9A4.605,4.605,0,0,0,7.9,4.449Z" transform="translate(0 0)"/>
+      </g>
+    </g>
+    <circle id="Oval_5" data-name="Oval 5" cx="6.5" cy="6.5" r="6.5" transform="translate(-13543.227 3486.859)" fill="#ef3939" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+    <text id="_4" data-name="4" transform="translate(-13539.227 3496.859)" fill="#fff" font-size="9" font-family="Lato-Regular, Lato" letter-spacing="0.779em"><tspan x="0" y="0">4</tspan></text>
+  </g>
+</svg>

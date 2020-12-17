@@ -1,0 +1,102 @@
+/* filter option css  */
+
+/* The side navigation menu */
+.filternav {
+    height: auto; /* 100% Full-height */
+    width: 300px; /* 0 width - change this with JavaScript */
+    position: absolute; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 60px; /* Stay at the top */
+    right: 0;
+    background-color: #fff; /* Black*/
+    box-shadow: 0 0.5rem 1rem #eee;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  }
+  
+  /* The navigation menu links */
+  .filternav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #000;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .filternav a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Position and style the close button (top right corner) */
+    .filternav .cancel-btn{
+        background: #eee;
+        padding: 7px 9px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .filternav .apply-btn{
+        cursor: pointer;
+        background: #075bd9;
+        padding: 7px 9px;
+        color: #fff;
+        border-radius: 5px;
+    }
+  
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .filternav {padding-top: 15px;}
+    .filternav a {font-size: 18px;}
+  }
+.input-group-text{
+    background: #fff;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-bottom-width: 1px;
+}  
+.inputsss{
+    background: #fff;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-bottom-width: 1px;
+}
+.inputsss:focus{
+    box-shadow: none;
+}
+.list_of_search{
+    padding: 9px;
+    list-style: none;
+}
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+    width: 25px;
+    height: 19px;
+}
+.list_of_search label {
+    position: relative;
+    top: -5px;
+}
+.create_inpt{
+    padding: 27px;
+}
+label.created_date{
+    position: relative;
+    background: #fff;
+    top: 19px;
+    left: 11px;
+}
+.slidecontainer input:focus{
+    box-shadow: none;
+}
+/* filter option css  */

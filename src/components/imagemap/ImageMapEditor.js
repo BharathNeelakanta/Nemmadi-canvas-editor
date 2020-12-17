@@ -726,12 +726,17 @@ class ImageMapEditor extends Component {
             </div>
         );
         return (
-            <Container
+            <div className="rde-main">
+            <div className="rde-content">
+                                <Container
                 title={title}
                 content={content}
                 loading={loading}
                 className=""
             />
+            </div>
+            </div>
+
         );
     }
 }
