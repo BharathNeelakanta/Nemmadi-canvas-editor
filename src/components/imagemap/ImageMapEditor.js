@@ -10,6 +10,7 @@ import ImageMapHeaderToolbar from './ImageMapHeaderToolbar';
 import ImageMapPreview from './ImageMapPreview';
 import ImageMapConfigurations from './ImageMapConfigurations';
 import SandBox from '../sandbox/SandBox';
+import {toast} from 'react-toastify'; 
 
 import '../../libs/fontawesome-5.2.0/css/all.css';
 import '../../styles/index.less';
@@ -100,11 +101,105 @@ class ImageMapEditor extends Component {
                 this.showLoading(false);
             });
         });
+        this.getCanvasDetails();
         this.setState({
             selectedItem: null,
         });
     }
 
+    getCanvasDetails = () => {
+        let urlElements = window.location.href.split('/');
+        console.log("this.props::::",this.props);
+        let floorId = this.props.match.params.floorid;
+        console.log("floorId::::",floorId);
+        // let blob = 26;
+        try{
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", `Bearer ${localStorage.getItem("authToken")}`);
+            // myHeaders.append("Content-Type", `multipart/form-data boundary=----WebKitFormBoundaryygBUveve9lmfGRES`);
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+            console.log("requestOptions ::",requestOptions);
+            fetch(`https://nbk.synctactic.ai/floors/${floorId}/`, requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log("result is:::",result)
+                    let data = JSON.parse(result);
+                    console.log("Success:", data.meta)
+                    let length = data.meta.length-1
+                    let meta = data.meta[length].id
+                    fetch(`https://nbk.synctactic.ai/meta/${meta}/`, requestOptions)
+                    .then(response => response.json())
+                    .then(response => {
+                        console.log(">>>>>>>>>>",response);
+                        const {objects, animations, styles, dataSources } = response.dict;
+                        this.setState({
+                            animations,
+                            styles,
+                            dataSources,
+                        });
+
+                        if (objects) {
+                            this.canvasRef.handler.clear(true);
+                            const data = objects.filter((obj) => {
+                                if (!obj.id) {
+                                    return false;
+                                }
+                                return true;
+                            });
+                            this.canvasRef.handler.importJSON(JSON.stringify(data));
+                    }
+                })
+                })
+                    // alert(''),
+                    // toast('Published Successfully'),
+                    // window.location.href="/listingProjects"
+                .catch(error => console.log('error', error));
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    handlePublish = (data) => {
+        console.log("data is :::",data);
+        let urlElements = window.location.href.split('/');
+        console.log("this.props::::",this.props);
+        let floorId = this.props.match.params.floorid;
+        console.log("floorId::::",floorId);
+        console.log("urlElements::::",urlElements);
+        // let blob = 26;
+        try{
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", `Bearer ${localStorage.getItem("authToken")}`);
+            // myHeaders.append("Content-Type", `multipart/form-data boundary=----WebKitFormBoundaryygBUveve9lmfGRES`);
+
+            var formdata = new FormData();
+            formdata.append("floor", floorId);
+            // above floor id needs to be made dynamic
+            formdata.append("dict", `${JSON.stringify(data)}`);
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: formdata,
+                redirect: 'follow'
+            };
+            console.log("requestOptions ::",requestOptions);
+            fetch("https://nbk.synctactic.ai/meta/", requestOptions)
+                .then(response => response.text())
+                .then(result => 
+                    console.log("Success:", result),
+                    // alert(''),
+                    toast('Published Successfully'),
+                    // window.location.href="/listingProjects"
+                )
+                .catch(error => console.log('error', error));
+        }catch(e){
+            console.log(e);
+        }
+    }
     canvasHandlers = {
         onAdd: (target) => {
             const { editing } = this.state;
@@ -519,6 +614,8 @@ class ImageMapEditor extends Component {
                 dataSources,
             };
             const anchorEl = document.createElement('a');
+            console.log("exportDatas is:::",exportDatas);
+            this.handlePublish(exportDatas);
             anchorEl.href = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(exportDatas, null, '\t'))}`;
             anchorEl.download = `${this.canvasRef.handler.workarea.name || 'sample'}.json`;
             document.body.appendChild(anchorEl); // required for firefox

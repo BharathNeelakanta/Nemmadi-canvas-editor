@@ -10,6 +10,7 @@ import Styles from './styles/Styles';
 import DataSources from './datasources/DataSources';
 import Icon from '../icon/Icon';
 import CommonButton from '../common/CommonButton';
+import ImageMapList from './ImageMapList';
 
 class ImageMapConfigurations extends Component {
     static propTypes = {
@@ -60,6 +61,7 @@ class ImageMapConfigurations extends Component {
         });
         return (
             <div className={className}>
+            
                 <CommonButton
                     className="rde-action-btn"
                     shape="circle"
@@ -77,6 +79,7 @@ class ImageMapConfigurations extends Component {
                     <Tabs.TabPane tab={<Icon name="cog" />} key="map">
                         <MapProperties onChange={onChange} canvasRef={canvasRef} />
                     </Tabs.TabPane>
+           
                     {/* <Tabs.TabPane tab={<Icon name="cogs" />} key="node">
                         <NodeProperties onChange={onChange} selectedItem={selectedItem} canvasRef={canvasRef} />
                     </Tabs.TabPane>
@@ -90,6 +93,7 @@ class ImageMapConfigurations extends Component {
                         <DataSources ref={(c) => { this.dataSourcesRef = c; }} dataSources={dataSources} onChangeDataSources={onChangeDataSources} />
                     </Tabs.TabPane> */}
                 </Tabs>
+             
             </div>
         );
     }

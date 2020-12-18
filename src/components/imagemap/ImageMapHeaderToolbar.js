@@ -16,6 +16,7 @@ class ImageMapHeaderToolbar extends Component {
     render() {
         const { canvasRef, selectedItem } = this.props;
         const isCropping = canvasRef ? canvasRef.handler.interactionMode === 'crop' : false;
+        console.log("prop",selectedItem)
         return (
             <FlexBox className="rde-editor-header-toolbar-container" flex="1">
                 <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-list">
@@ -176,6 +177,14 @@ class ImageMapHeaderToolbar extends Component {
                     >
                         Redo
                         <Icon name="redo-alt" style={{ marginLeft: 8 }} />
+                    </CommonButton>
+                    <CommonButton
+                        className="rde-action-btn"
+                        disabled={isCropping || (canvasRef && !canvasRef.handler.transactionHandler.undos.length)}
+                        onClick={() => canvasRef.handler.transactionHandler.redo()}
+                    >
+                        Publish
+                        <Icon name="upload" style={{ marginLeft: 8 }} />
                     </CommonButton>
                 </FlexItem>
             </FlexBox>
