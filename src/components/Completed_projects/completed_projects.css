@@ -237,6 +237,7 @@ img.search_img {
   
   .dropdown:hover .dropdown-content {
     display: block;
+    z-index: 9;
   }
 
   .create-project{

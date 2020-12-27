@@ -207,12 +207,12 @@ class CreateFloorModal extends React.Component {
                         <div className="modal-content">
                             <div className="modal-header">
                                 <p className="text-center">CREATE NEW FLOOR</p>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <button type="button" className="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div className="modal-body">
                                 <form className="create-form">
                                     <div className="form-group">
-                                        <label HtmlFor="projectname"> Floor Name</label>
+                                        <label htmlFor="projectname"> Floor Name</label>
                                         <button type="button" className="close" data-dismiss="modal">&times;</button>
 
                                         <input type="text" name="name"
@@ -224,7 +224,7 @@ class CreateFloorModal extends React.Component {
                                             className="form-control" required />
                                         {this.state.errors.name && <p style={{ color: "red" }}>The  Name field is required</p>}
 
-                                        <label HtmlFor="projectname">Assigned To</label>
+                                        <label htmlFor="projectname">Assigned To</label>
                                         <input type="text" name="assigned_to"
                                             value={this.state.floorId > 0 ?
                                                 this.state.editFloor.assigned_to :
@@ -235,7 +235,7 @@ class CreateFloorModal extends React.Component {
                                         {this.state.errors.name && <p style={{ color: "red" }}>The  Name field is required</p>}
                                         {/* <input type="text" name="status" onChange={this.handleChange}
                                             className="form-control" required />
-                                        <label HtmlFor="projectname"> status</label>
+                                        <label htmlFor="projectname"> status</label>
                                         {this.state.errors.name && <p style={{ color: "red" }}>The  Name field is required</p>} */}
 
                                     </div>

@@ -11,6 +11,15 @@ class ImageMapList extends Component {
         selectedItem: PropTypes.object,
     }
 
+    state = {
+        editingItem: null,
+        editingValue: ''
+    }
+
+    isEditing = val => {
+        console.log("val is::::",val);
+        this.setState({editingItem:val})
+    }
     renderActions = () => {
         const { canvasRef } = this.props;
         const idCropping = canvasRef ? canvasRef.handler.interactionMode === 'crop' : false;
@@ -47,8 +56,31 @@ class ImageMapList extends Component {
         // }).map((obj) => {
         // });
     }
+
+    keyPress = (e = null) => {
+        const { canvasRef } = this.props;
+        const { editingItem , editingValue} = this.state;
+        if( e != null) {
+            let value =  e.target.value;
+            if(e.keyCode == 13){
+                canvasRef.handler.editByID(editingItem,value)
+                this.setState({editingItem:null});
+                }
+        }else{
+            canvasRef.handler.editByID(editingItem,editingValue)
+            this.setState({editingItem:null,editingValue:''});
+        }
+
+    }
+
+    keyPressUp = (e) => {
+        let value =  e.target.value;
+        this.setState({editingValue: value})
+    }
+
     renderItem = () => {
         const { canvasRef, selectedItem } = this.props;
+        const { editingItem } = this.state;
         const idCropping = canvasRef ? canvasRef.handler.interactionMode === 'crop' : false;
         return canvasRef ? (
             canvasRef.canvas.getObjects().filter((obj) => {
@@ -107,21 +139,32 @@ class ImageMapList extends Component {
                 if (selectedItem && selectedItem.id === obj.id) {
                     className += ' selected-item';
                 }
+                console.log("obj.id :::",obj.id);
+                console.log("editingItem ::::",editingItem);
                 return (
                     <FlexItem key={obj.id} className={className} flex="1" onClick={() => canvasRef.handler.select(obj)}>
-                        <FlexBox alignItems="center">
-                            <Icon className="rde-canvas-list-item-icon" name={icon} size={1.5} style={{ width: 32 }} prefix={prefix} />
+                        <FlexBox alignItems="center" style={{"padding":"10px"}}>
+                            {/* <Icon className="rde-canvas-list-item-icon" name={icon} size={1.5} style={{ width: 32 }} prefix={prefix} /> */}
                             <div className="rde-canvas-list-item-text">
-                                <input value={title} onChange={(e) => {console.log("id::",obj.id); e.stopPropagation(); canvasRef.handler.editByID(obj.id,e.target.value); }} />
+                                {/* <input value={title} onChange={(e) => {console.log("id::",obj.id); e.stopPropagation(); canvasRef.handler.editByID(obj.id,e.target.value); }} /> */}
+                                
+                                {obj.id === editingItem ? 
+                                    <input type ="text" style={{'max-width':'100px'}} onKeyDown={this.keyPress} onKeyUp={this.keyPressUp}/>
+                                :<div>{title}</div>}
                             </div>
 
                             <FlexBox className="rde-canvas-list-item-actions" flex="1" justifyContent="flex-end">
                                 <Button className="rde-action-btn" shape="circle" disabled={idCropping} onClick={(e) => { e.stopPropagation(); canvasRef.handler.duplicateById(obj.id); }}>
                                     <Icon name="clone" />
                                 </Button>
-                                {/* <Button className="rde-action-btn" shape="circle" disabled={idCropping} onClick={(e) => { e.stopPropagation(); canvasRef.handler.duplicateById(obj.id); }}>
+                                {obj.id === editingItem  ?
+                                <Button className="rde-action-btn" shape="circle" disabled={idCropping} onClick={(e) => { e.stopPropagation(); this.keyPress() }}>
+                                <Icon name="save" />
+                                </Button>
+                                :<Button className="rde-action-btn" shape="circle" disabled={idCropping} onClick={(e) => { e.stopPropagation(); this.isEditing(obj.id) }}>
                                     <Icon name="edit" />
-                                </Button> */}
+                                </Button>
+                                }
                                 <Button className="rde-action-btn" shape="circle" disabled={idCropping} onClick={(e) => { e.stopPropagation(); canvasRef.handler.removeById(obj.id); }}>
                                     <Icon name="trash" />
                                 </Button>
@@ -136,7 +179,7 @@ class ImageMapList extends Component {
     render() {
         return (
             <FlexBox style={{ height: '100%' }} flexDirection="column">
-                {this.renderActions()}
+                {/* {this.renderActions()} */}
                 <div className="rde-canvas-list-items">
                     {this.renderItem()}
                 </div>

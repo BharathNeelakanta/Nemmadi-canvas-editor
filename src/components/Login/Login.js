@@ -9,9 +9,9 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 // import Toast from 'react-bootstrap/Toast'
 // import ToastBody from 'react-bootstrap/ToastBody'
 import axios from "../Axios"
-import {toast} from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
-toast.configure() 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 class Login extends React.Component {
     constructor() {
         super()
@@ -79,31 +79,29 @@ class Login extends React.Component {
             axios.post('auth/', formData, {
                 headers: {
                     "Content-Type": "application/json",
-                    // "Authorization": `Bearer ${localStorage.setItem("authToken")}`
                 }
             })
                 .then(response => {
-                    // if (response.data == 200) {
-                        console.log(response.data)
+                    if (response.status == 200 && response.data.access !== "") {
+                        console.log(response.status)
                         localStorage.setItem('authToken', response.data.access)
-                        // Swal.fire({
-                        //     position: 'top-end',
-                        //     icon: 'success',
-                        //     title: 'Your are successfully registerd',
-                        //     timer: 1500
-                        // })
-                        toast('Logged in Successfully') 
-                        window.location.href="/listingProjects";
+                        toast.success('Logged in Successfully')
+                        window.location.href = "/listingProjects";
 
-                    // }
-                    this.props.history.push('/listingProjects')
+                    }
 
                 })
                 .catch(error => {
-                    toast('Logged in Successfully') 
+                    toast.error('Invalid Username Or Password', { position: toast.POSITION.TOP_LEFT })
                     console.log(error)
                 })
         }
+    }
+    componentDidMount() {
+        window.history.pushState(null, document.title, window.location.href);
+        window.addEventListener('popstate', function (event) {
+            window.history.pushState(null, document.title, window.location.href);
+        });
     }
     render() {
         console.log("errors==>", this.state.errors)

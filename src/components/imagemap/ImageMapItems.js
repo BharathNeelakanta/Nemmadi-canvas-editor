@@ -10,6 +10,7 @@ import Icon from '../icon/Icon';
 import Scrollbar from '../common/Scrollbar';
 import CommonButton from '../common/CommonButton';
 import { SVGModal } from '../common';
+import ImageMapList from "./ImageMapList";
 
 notification.config({
     top: 80,
@@ -24,75 +25,75 @@ class ImageMapItems extends Component {
 
     state = {
         activeKey: [],
-        collapse: false,
+        collapse: true,
         textSearch: '',
         descriptors: {},
         filteredDescriptors: [],
         svgModalVisible: false,
     }
 
-    componentDidMount() {
-        const { canvasRef } = this.props;
-        this.waitForCanvasRender(canvasRef);
-    }
+    // componentDidMount() {
+    //     const { canvasRef } = this.props;
+    //     this.waitForCanvasRender(canvasRef);
+    // }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (JSON.stringify(this.props.descriptors) !== JSON.stringify(nextProps.descriptors)) {
-            const descriptors = Object.keys(nextProps.descriptors).reduce((prev, key) => {
-                return prev.concat(nextProps.descriptors[key]);
-            }, []);
-            this.setState({
-                descriptors,
-            });
-        }
-    }
+    // UNSAFE_componentWillReceiveProps(nextProps) {
+    //     if (JSON.stringify(this.props.descriptors) !== JSON.stringify(nextProps.descriptors)) {
+    //         const descriptors = Object.keys(nextProps.descriptors).reduce((prev, key) => {
+    //             return prev.concat(nextProps.descriptors[key]);
+    //         }, []);
+    //         this.setState({
+    //             descriptors,
+    //         });
+    //     }
+    // }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (JSON.stringify(this.state.descriptors) !== JSON.stringify(nextState.descriptors)) {
-            return true;
-        } else if (JSON.stringify(this.state.filteredDescriptors) !== JSON.stringify(nextState.filteredDescriptors)) {
-            return true;
-        } else if (this.state.textSearch !== nextState.textSearch) {
-            return true;
-        } else if (JSON.stringify(this.state.activeKey) !== JSON.stringify(nextState.activeKey)) {
-            return true;
-        } else if (this.state.collapse !== nextState.collapse) {
-            return true;
-        } else if (this.state.svgModalVisible !== nextState.svgModalVisible) {
-            return true;
-        }
-        return false;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (JSON.stringify(this.state.descriptors) !== JSON.stringify(nextState.descriptors)) {
+    //         return true;
+    //     } else if (JSON.stringify(this.state.filteredDescriptors) !== JSON.stringify(nextState.filteredDescriptors)) {
+    //         return true;
+    //     } else if (this.state.textSearch !== nextState.textSearch) {
+    //         return true;
+    //     } else if (JSON.stringify(this.state.activeKey) !== JSON.stringify(nextState.activeKey)) {
+    //         return true;
+    //     } else if (this.state.collapse !== nextState.collapse) {
+    //         return true;
+    //     } else if (this.state.svgModalVisible !== nextState.svgModalVisible) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
-    componentWillUnmount() {
-        const { canvasRef } = this.props;
-        this.detachEventListener(canvasRef);
-    }
+    // componentWillUnmount() {
+    //     const { canvasRef } = this.props;
+    //     this.detachEventListener(canvasRef);
+    // }
 
-    waitForCanvasRender = (canvas) => {
-        setTimeout(() => {
-            if (canvas) {
-                this.attachEventListener(canvas);
-                return;
-            }
-            const { canvasRef } = this.props;
-            this.waitForCanvasRender(canvasRef);
-        }, 5);
-    };
+    // waitForCanvasRender = (canvas) => {
+    //     setTimeout(() => {
+    //         if (canvas) {
+    //             this.attachEventListener(canvas);
+    //             return;
+    //         }
+    //         const { canvasRef } = this.props;
+    //         this.waitForCanvasRender(canvasRef);
+    //     }, 5);
+    // };
 
-    attachEventListener = (canvas) => {
-        canvas.canvas.wrapperEl.addEventListener('dragenter', this.events.onDragEnter, false);
-        canvas.canvas.wrapperEl.addEventListener('dragover', this.events.onDragOver, false);
-        canvas.canvas.wrapperEl.addEventListener('dragleave', this.events.onDragLeave, false);
-        canvas.canvas.wrapperEl.addEventListener('drop', this.events.onDrop, false);
-    }
+    // attachEventListener = (canvas) => {
+    //     canvas.canvas.wrapperEl.addEventListener('dragenter', this.events.onDragEnter, false);
+    //     canvas.canvas.wrapperEl.addEventListener('dragover', this.events.onDragOver, false);
+    //     canvas.canvas.wrapperEl.addEventListener('dragleave', this.events.onDragLeave, false);
+    //     canvas.canvas.wrapperEl.addEventListener('drop', this.events.onDrop, false);
+    // }
 
-    detachEventListener = (canvas) => {
-        canvas.canvas.wrapperEl.removeEventListener('dragenter', this.events.onDragEnter);
-        canvas.canvas.wrapperEl.removeEventListener('dragover', this.events.onDragOver);
-        canvas.canvas.wrapperEl.removeEventListener('dragleave', this.events.onDragLeave);
-        canvas.canvas.wrapperEl.removeEventListener('drop', this.events.onDrop);
-    }
+    // detachEventListener = (canvas) => {
+    //     canvas.canvas.wrapperEl.removeEventListener('dragenter', this.events.onDragEnter);
+    //     canvas.canvas.wrapperEl.removeEventListener('dragover', this.events.onDragOver);
+    //     canvas.canvas.wrapperEl.removeEventListener('dragleave', this.events.onDragLeave);
+    //     canvas.canvas.wrapperEl.removeEventListener('drop', this.events.onDrop);
+    // }
 
     /* eslint-disable react/sort-comp, react/prop-types */
     handlers = {
@@ -248,58 +249,58 @@ class ImageMapItems extends Component {
         },
     }
 
-    renderItems = items => (
-        <FlexBox flexWrap="wrap" flexDirection="column" style={{ width: '100%' }}>
-            {items.map(item => this.renderItem(item))}
-        </FlexBox>
-    )
+    // renderItems = items => (
+    //     <FlexBox flexWrap="wrap" flexDirection="column" style={{ width: '100%' }}>
+    //         {items.map(item => this.renderItem(item))}
+    //     </FlexBox>
+    // )
 
-    renderItem = (item, centered) => (
-        item.type === 'drawing' ? (
-            <div
-                key={item.name}
-                draggable
-                onClick={e => this.handlers.onDrawingItem(item)}
-                className="rde-editor-items-item"
-                style={{ justifyContent: this.state.collapse ? 'center' : null }}
-            >
-                <span className="rde-editor-items-item-icon">
-                    <Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
-                </span>
-                {
-                    this.state.collapse ? null : (
-                        <div className="rde-editor-items-item-text">
-                            {item.name}
-                        </div>
-                    )
-                }
-            </div>
-        ) : (
-            <div
-                key={item.name}
-                draggable
-                onClick={e => this.handlers.onAddItem(item, centered)}
-                onDragStart={e => this.events.onDragStart(e, item)}
-                onDragEnd={e => this.events.onDragEnd(e, item)}
-                className="rde-editor-items-item"
-                style={{ justifyContent: this.state.collapse ? 'center' : null }}
-            >
-                <span className="rde-editor-items-item-icon">
-                    <Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
-                </span>
-                {
-                    this.state.collapse ? null : (
-                        <div className="rde-editor-items-item-text">
-                            {item.name}
-                        </div>
-                    )
-                }
-            </div>
-        )
-    )
+    // renderItem = (item, centered) => (
+    //     item.type === 'drawing' ? (
+    //         <div
+    //             key={item.name}
+    //             draggable
+    //             onClick={e => this.handlers.onDrawingItem(item)}
+    //             className="rde-editor-items-item"
+    //             style={{ justifyContent: this.state.collapse ? 'center' : null }}
+    //         >
+    //             <span className="rde-editor-items-item-icon">
+    //                 <Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
+    //             </span>
+    //             {
+    //                 this.state.collapse ? null : (
+    //                     <div className="rde-editor-items-item-text">
+    //                         {item.name}
+    //                     </div>
+    //                 )
+    //             }
+    //         </div>
+    //     ) : (
+    //         <div
+    //             key={item.name}
+    //             draggable
+    //             onClick={e => this.handlers.onAddItem(item, centered)}
+    //             onDragStart={e => this.events.onDragStart(e, item)}
+    //             onDragEnd={e => this.events.onDragEnd(e, item)}
+    //             className="rde-editor-items-item"
+    //             style={{ justifyContent: this.state.collapse ? 'center' : null }}
+    //         >
+    //             <span className="rde-editor-items-item-icon">
+    //                 <Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} />
+    //             </span>
+    //             {
+    //                 this.state.collapse ? null : (
+    //                     <div className="rde-editor-items-item-text">
+    //                         {item.name}
+    //                     </div>
+    //                 )
+    //             }
+    //         </div>
+    //     )
+    // )
 
     render() {
-        const { descriptors } = this.props;
+        const { descriptors, canvasRef, selectedItem } = this.props;
         const {
             collapse,
             textSearch,
@@ -311,6 +312,9 @@ class ImageMapItems extends Component {
         const className = classnames('rde-editor-items', {
             minimize: collapse,
         });
+        console.log("descriptors is::::",descriptors);
+        console.log("filteredDescriptors is::::",filteredDescriptors);
+
         return (
             <div className={className}>
                 <FlexBox flex="1" flexDirection="column" style={{ height: '100%' }}>
@@ -335,7 +339,7 @@ class ImageMapItems extends Component {
                         }
                     </FlexBox>
                     <Scrollbar>
-                        <FlexBox flex="1" style={{ overflowY: 'hidden' }}>
+                        {/* <FlexBox flex="1" style={{ overflowY: 'hidden' }}>
                             {
                                 (textSearch.length && this.renderItems(filteredDescriptors)) || (
                                     collapse ? (
@@ -359,15 +363,16 @@ class ImageMapItems extends Component {
                                     )
                                 )
                             }
-                        </FlexBox>
+                        </FlexBox> */}
+                        { collapse ? null : <ImageMapList canvasRef={canvasRef} selectedItem={selectedItem} /> }
                     </Scrollbar>
                 </FlexBox>
-                <SVGModal
+                {/* <SVGModal
                     visible={svgModalVisible}
                     onOk={this.handlers.onAddSVG}
                     onCancel={this.handlers.onSVGModalVisible}
                     option={svgOption}
-                />
+                /> */}
             </div>
         );
     }

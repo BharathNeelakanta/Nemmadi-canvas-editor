@@ -29,6 +29,7 @@ class CommonButton extends Component {
         visible: true,
         disabled: false,
         loading: false,
+        iconStyle: {'font-size':'2em'}
     }
 
     render() {

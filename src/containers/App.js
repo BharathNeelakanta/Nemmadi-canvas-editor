@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import ImageMapEditor from '../components/imagemap/ImageMapEditor';
 import WorkflowEditor from '../components/workflow/WorkflowEditor';
 import Title from './Title';
-//  import './App.css';
+import './App.css';
 import { BrowserRouter, Route } from "react-router-dom"
 import Login from "../components/Login/Login"
 import ListingProjects from "../components/Completed_projects/ListingProjects"

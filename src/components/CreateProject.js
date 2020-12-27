@@ -72,7 +72,10 @@ class createProject extends React.Component {
 
     }
 
+    handleChange3 = () => {
+        window.location.reload();
 
+    }
 
 
     handleSubmit = (e) => {
@@ -118,6 +121,7 @@ class createProject extends React.Component {
                     }
 
 
+
                     console.log(formData1)
                     axios.post("/property/", formData1, {
                         headers: {
@@ -147,8 +151,6 @@ class createProject extends React.Component {
                                         console.log(error)
                                     })
                             }
-                            // console.log("response", response.data)
-                            // window.location.href = "/listingProjects";
 
 
                         })
@@ -206,12 +208,18 @@ class createProject extends React.Component {
     }
 
     nextButton() {
-        let currentStep = this.state.currentStep;
+        const { currentStep, name, location, builder, type, owner, door, floor, assignee } = this.state;
+
         if (currentStep < 3) {
             return (
                 <button
-                    className="btn btn-primary float-right mr-3"
-                    type="button" onClick={this._next}>
+                    className="btn btn-primary float-right mr-3 mb-2"
+                    type="button"
+                    onClick={this._next}
+                    disabled={currentStep == 1 && name !== "" && location !== "" && builder !== "" ? false :
+                        currentStep == 2 && type !== "" && owner !== "" && door !== "" ? false :
+                            // currentStep == 3 && floor !== "" && assignee !== "" ? false :
+                            true}>
                     Next
                 </button>
             )
@@ -241,17 +249,19 @@ class createProject extends React.Component {
                 }
                 `}
                 </style>
-                {/* <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal"
                     data-target="#myModalCreateProject">Open Modal</button> */}
-                <div id="myModalCreateProject" class="modal fade createProject" role="dialog">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">{this.state.currentStep === 1 ? "Create New Project" : "Enter Detail"}</h4>
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <div id="myModalCreateProject" className="modal fade createProject" role="dialog">
+                    <div className="modal-dialog modal-lg">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 className="modal-title">{this.state.currentStep === 1 ? "Create New Project" : "Enter Detail"}</h4>
+                                <button type="button" onClick={this.handleChange3} className="close"
+                                    data-dismiss="modal" >&times; </button>
+
                             </div>
                             <form className="m-0" onSubmit={this.handleSubmit}>
-                                <div class="modal-body">
+                                <div className="modal-body">
 
                                     {/* 
                             render the form steps and pass required props in
@@ -260,8 +270,8 @@ class createProject extends React.Component {
                                         currentStep={this.state.currentStep}
                                         handleChange={this.handleChange}
                                         name={this.state.name}
-                                        Location={this.state.location}
-                                        Builder={this.state.builder}
+                                        location={this.state.location}
+                                        builder={this.state.builder}
                                         errors={this.state.errors}
                                     />
                                     <Step2
@@ -270,6 +280,9 @@ class createProject extends React.Component {
                                         type={this.state.type}
                                         owner={this.state.owner}
                                         door={this.state.door}
+                                        name={this.state.name}
+                                        Location={this.state.location}
+                                        Builder={this.state.builder}
                                         propertiesData={this.state.propertiesData}
                                         errors={this.state.errors}
 
@@ -288,7 +301,7 @@ class createProject extends React.Component {
 
 
                                 </div>
-                                <div class="modal-button" style={{ borderTop: "1px solid rgb(219 216 216)", padding: "11px" }}>
+                                <div className="modal-button" style={{ borderTop: "1px solid rgb(219 216 216)", padding: "11px" }}>
                                     {this.previousButton()}
                                     {this.nextButton()}
                                 </div>
@@ -300,7 +313,7 @@ class createProject extends React.Component {
                 {/* <p>Step {props.currentStep} </p>  */}
 
 
-            </React.Fragment>
+            </React.Fragment >
         );
     }
 }
@@ -311,6 +324,10 @@ function Step1(props) {
     }
     return (
         <div>
+            {console.log("1", props.location)}
+            {console.log("2", props.name)}
+            {console.log("3", props.builder)}
+
             <div className="form-group">
                 <label htmlFor="name">Project Name (required)</label>
 
@@ -347,7 +364,6 @@ function Step1(props) {
                     name="builder"
                     type="text"
                     placeholder="Enter Builder"
-                    value=""
                     value={props.builder}
                     onChange={props.handleChange}
                 />
@@ -364,12 +380,12 @@ function Step2(props) {
     return (
         <div>
 
-            <div class="row">
+            <div className="row">
                 <div className="col-md-4">
                     <div className="form-group">
                         <label>Select a property type</label>
-                        <select name="type" id="proper" class="form-control" onChange={props.handleChange} >
-                            <option value="0">-Select-</option>
+                        <select name="type" id="proper" value={props.type} className="form-control" onChange={props.handleChange} >
+                            <option>-Select-</option>
 
                             <option value="1">Villa</option>
                             <option value="2">Apartment</option>
@@ -379,30 +395,30 @@ function Step2(props) {
 
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div className="col-md-4">
                     <label htmlFor="">Enter Property Owner Name</label>
 
-                    <input type="text" name="owner" class="form-control"
+                    <input type="text" name="owner" className="form-control"
                         placeholder="Eg.Jhon"
                         onChange={props.handleChange}
                         value={props.owner} />
 
                 </div>
-                <div class="col-md-4">
+                <div className="col-md-4">
                     <label htmlFor="">Enter Door Number</label>
-                    <input type="text" name="door" class="form-control"
+                    <input type="text" name="door" className="form-control"
                         placeholder="Eg.001"
                         onChange={props.handleChange}
                         value={props.door} />
                 </div>
             </div>
-            {/* <div class="col-md-offset-1 col-md-10" style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
-                <span class="pull-right add_prop" style={{ color: "#075bd9" }}> <img src={add_icon} alt="addicon"
+            {/* <div className="col-md-offset-1 col-md-10" style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
+                <span className="pull-right add_prop" style={{ color: "#075bd9" }}> <img src={add_icon} alt="addicon"
                 />
                  Add Property</span>
             </div> */}
-            <div class="col-md-12 table_div">
-                <table class="table table-striped">
+            <div className="col-md-12 mt-2 table_div">
+                <table className="table table-striped">
                     <thead>
                         <tr>
                             <th>Property Type</th>
@@ -412,7 +428,7 @@ function Step2(props) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{props.type} </td>
+                            <td>{props.type == 1 ? "Villa" : props.type == 2 ? "Apartment" :props.type == 3 ? "Duplex" : ""} </td>
                             <td>{props.owner} </td>
                             <td>{props.door}</td>
                         </tr>
@@ -429,40 +445,45 @@ function Step3(props) {
     }
     return (
         <React.Fragment>
-            {/* <div class="col-md-offset-1 col-md-10"> */}
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Enter Floor Number</label>
-                    <input type="text" name="floor" class="form-control" onChange={props.handleChange} placeholder="Eg.12" />
+            {/* <div className="col-md-offset-1 col-md-10"> */}
+            <div className="row">
+                <div className="col-md-6">
+                    <label htmlFor="">Enter Floor Number</label>
+                    <input type="text" name="floor" className="form-control" value={props.floor} onChange={props.handleChange} placeholder="Eg.12" />
                 </div>
-                <div class="col-md-6">
+                <div className="col-md-6">
 
-                    {/* <label for="" style={{ visibility: "hidden" }}>Employee Id</label> */}
-                    <label for="">Select Employee Id</label>
+                    {/* <label htmlFor="" style={{ visibility: "hidden" }}>Employee Id</label> */}
+                    <label htmlFor="">Select Employee Id</label>
 
-                    <select name="assignee" id="assignee" class="form-control"
+                    <select name="assignee" id="assignee" value={props.assignee} className="form-control"
                         onChange={props.handleChange}>
-                        <option value="">Assignee</option>
-                        <option value="1">1</option>
-                        <option value="3">3</option>
+                        <option >Assignee</option>
+                        <option value="3">Jhon</option>
+                        {/* <option value="4">4</option> */}
                     </select>
                 </div>
             </div>
             {/* </div> */}
-            {/* <div class="col-md-12" style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
-                <span class="pull-right add_prop" style={{ color: "#075bd9" }}> <img src={add_icon} alt="addicon"
+            {/* <div className="col-md-12" style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
+                <span className="pull-right add_prop" style={{ color: "#075bd9" }}> <img src={add_icon} alt="addicon"
                 /> Add Floor</span>
             </div> */}
-            <div class="col-md-12 table_div">
-                <table class="table table-striped">
+            <div className="col-md-12 mt-3 table_div">
+                <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th>{props.floor}</th>
-                            <th>{props.assignee}</th>
+                            <th>Floor No</th>
+                            <th>Assignee</th>
                         </tr>
+
                     </thead>
                     <tbody>
-                        {
+                        <tr>
+                            <td>{props.floor}</td>
+                            <td>{props.assignee == 3 ? 'Jhon' : ""}</td>
+                        </tr>
+                        {/* {
                             props.floorsData.map((floor) => {
                                 return (
                                     <tr>
@@ -473,12 +494,12 @@ function Step3(props) {
                                 )
                             })
 
-                        }
+                        } */}
 
                     </tbody>
                 </table>
             </div>
-            <button className="btn btn-primary js-btn-step float-right mt-2">Complete</button>
+            <button className="btn btn-primary js-btn-step float-right" style={{marginTop:"30px"}}>Complete</button>
 
         </React.Fragment>
     );
@@ -868,16 +889,16 @@ export default createProject;
 //                 }
 //                 `}
 //                 </style>
-//                 {/* <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+//                 {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal"
 //                     data-target="#myModalCreateProject">Open Modal</button> */}
-//                 <div id="myModalCreateProject" class="modal fade createProject" role="dialog">
-//                     <div class="modal-dialog modal-lg">
-//                         <div class="modal-content">
-//                             <div class="modal-header">
-//                                 <h4 class="modal-title">{this.state.currentStep === 1 ? "Create New Project" : "Enter Detail"}</h4>
+//                 <div id="myModalCreateProject" className="modal fade createProject" role="dialog">
+//                     <div className="modal-dialog modal-lg">
+//                         <div className="modal-content">
+//                             <div className="modal-header">
+//                                 <h4 className="modal-title">{this.state.currentStep === 1 ? "Create New Project" : "Enter Detail"}</h4>
 //                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
 //                             </div>
-//                             <div class="modal-body">
+//                             <div className="modal-body">
 //                                 <form className="m-0" onSubmit={this.handleSubmit}>
 //                                     {/* 
 //                             render the form steps and pass required props in
@@ -922,7 +943,7 @@ export default createProject;
 
 //                                 </form>
 //                             </div>
-//                             <div class="modal-button" style={{ borderTop: "1px solid rgb(219 216 216)", padding: "11px" }}>
+//                             <div className="modal-button" style={{ borderTop: "1px solid rgb(219 216 216)", padding: "11px" }}>
 //                                 {this.previousButton()}
 //                                 {this.nextButton()}
 //                             </div>
@@ -1005,12 +1026,12 @@ export default createProject;
 //     return (
 //         <div>
 
-//             <div class="row">
+//             <div className="row">
 //                 <div className="col-md-4">
 //                     <div className="form-group">
 //                         <label>Select a project type</label>
 
-//                         <select name="type" id="proper" class="form-control"
+//                         <select name="type" id="proper" className="form-control"
 //                             value={props.projectId > 0 ? props.editProject.type : props.addNewProject.type}
 
 //                             onChange={props.handleChange} >
@@ -1024,20 +1045,20 @@ export default createProject;
 
 //                     </div>
 //                 </div>
-//                 <div class="col-md-4">
+//                 <div className="col-md-4">
 //                     <label htmlFor="">Enter Property Owner Name</label>
 
-//                     <input type="text" name="owner" class="form-control"
+//                     <input type="text" name="owner" className="form-control"
 //                         placeholder="Eg.Jhon"
 //                         onChange={props.handleChange}
 //                         // value={props.owner} 
 //                         value={props.projectId > 0 ? props.editProject.owner : props.addNewProject.owner} />
 
 //                 </div>
-//                 <div class="col-md-4">
+//                 <div className="col-md-4">
 //                     <label htmlFor="">Enter Door Number</label>
 
-//                     <input type="text" name="door" class="form-control"
+//                     <input type="text" name="door" className="form-control"
 //                         placeholder="Eg.001"
 //                         onChange={props.handleChange}
 //                         // value={props.door}
@@ -1045,14 +1066,14 @@ export default createProject;
 //                     />
 //                 </div>
 //             </div>
-//             <div class="col-md-offset-1 col-md-10" style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
+//             <div className="col-md-offset-1 col-md-10" style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
 
-//                 <span class="pull-right add_prop" style={{ color: "#075bd9" }}> <img src={add_icon} alt="addicon"
+//                 <span className="pull-right add_prop" style={{ color: "#075bd9" }}> <img src={add_icon} alt="addicon"
 //                 />
 //                  Add Property</span>
 //             </div>
-//             <div class="col-md-12 table_div">
-//                 <table class="table table-striped">
+//             <div className="col-md-12 table_div">
+//                 <table className="table table-striped">
 
 //                     <thead>
 //                         <tr>
@@ -1080,19 +1101,19 @@ export default createProject;
 //     }
 //     return (
 //         <React.Fragment>
-//             {/* <div class="col-md-offset-1 col-md-10"> */}
-//             <div class="row">
-//                 <div class="col-md-6">
-//                     <label for="">Enter Floor Number</label>
+//             {/* <div className="col-md-offset-1 col-md-10"> */}
+//             <div className="row">
+//                 <div className="col-md-6">
+//                     <label htmlFor="">Enter Floor Number</label>
 
-//                     <input type="text" name="floor" class="form-control"
+//                     <input type="text" name="floor" className="form-control"
 //                         value={props.projectId > 0 ? props.editProject.floor : props.addNewProject.floor}
 //                         onChange={props.handleChange} placeholder="Eg.12" />
 //                 </div>
-//                 <div class="col-md-6">
+//                 <div className="col-md-6">
 //                     <label>Select a project type</label>
 
-//                     <select name="assignee" id="assignee" class="form-control"
+//                     <select name="assignee" id="assignee" className="form-control"
 //                         value={props.projectId > 0 ? props.editProject.assignee : props.addNewProject.assignee}
 
 //                         onChange={props.handleChange}>
@@ -1104,12 +1125,12 @@ export default createProject;
 //                 </div>
 //             </div>
 //             {/* </div> */}
-//             <div class="col-md-12" style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
-//                 <span class="pull-right add_prop" style={{ color: "#075bd9" }}> <img src={add_icon} alt="addicon"
+//             <div className="col-md-12" style={{ marginTop: "0.5rem", marginBottom: "0.5rem" }}>
+//                 <span className="pull-right add_prop" style={{ color: "#075bd9" }}> <img src={add_icon} alt="addicon"
 //                 /> Add Floor</span>
 //             </div>
-//             <div class="col-md-12 table_div">
-//                 <table class="table table-striped">
+//             <div className="col-md-12 table_div">
+//                 <table className="table table-striped">
 //                     <thead>
 //                         <tr>
 //                             <th>Floor Number</th>
@@ -1132,3 +1153,27 @@ export default createProject;
 //     );
 // }
 // export default createProject;
+// nextButton() {
+//     const { currentStep, name, location, builder, type, owner, door, floor, assignee } = this.state;
+//     // let currentStep = this.state.currentStep;
+//     if (currentStep < 3) {
+//         return (
+//             <button
+//                 className="btn btn-primary float-right mr-3"
+//                 type="button"
+//                 onClick={this._next}
+//                 disabled={currentStep == 1 && name !== "" && location !== "" && builder !== "" ? false :
+//                     currentStep == 2 && type !== "" && owner !== "" && door !== "" ? false :
+//                         // currentStep == 3 && floor !== "" && assignee !== "" ? false :
+//                         true}>
+//                 Next
+//             </button>
+//         )
+//     }
+//     // else {
+//     //     return (
+//     //         <button type="submit" className="btn btn-primary js-btn-step float-right mt-2">Complete</button>
+//     //     )
+//     // }
+//     return null;
+// }

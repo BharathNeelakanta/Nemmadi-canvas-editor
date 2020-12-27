@@ -93,7 +93,7 @@ class CreateFloor extends React.Component {
                                 <form className="create-form">
                                     <div className="form-group">
                                         <input type="text" name="name" onChange={this.handleChange} className="form-control" required />
-                                        <label HtmlFor="projectname"> Floor Name</label>
+                                        <label htmlFor="projectname"> Floor Name</label>
 
                                     </div>
                                     <button href="#" className="create_btn ml-2" onClick={this.handleSubmit}> Create</button>

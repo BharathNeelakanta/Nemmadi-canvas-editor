@@ -5,7 +5,7 @@ class ImageMapTitle extends Component {
     render() {
         const { title, content, action, children } = this.props;
         return children || (
-            <FlexBox className="rde-content-layout-title" alignItems="center" flexWrap="wrap">
+            <FlexBox className="rde-content-layout-title-1" alignItems="center" flexWrap="wrap">
                 <FlexItem flex="0 1 auto">
                     <FlexBox className="rde-content-layout-title-title" justifyContent="flex-start" alignItems="center">
                         {

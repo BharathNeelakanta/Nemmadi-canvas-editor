@@ -14,6 +14,10 @@ import Delete from "../Assets/Delete.png"
 import Edit from "../Assets/Edit.png"
 import Mark from "../Assets/Mark.png"
 import Duplicate from "../Assets/Duplicate.png"
+import Delete3 from "../Assets/Delete3.jpeg"
+import edit3 from "../Assets/edit3.jpeg"
+import Delete5 from "../Assets/Delete5.jpeg"
+
 import Navbar from "../Navbar";
 // import CreateFloorModal from "./CreateFloorModal"
 import CreateModal from "../../components/Completed_projects/CreateModal"
@@ -175,6 +179,11 @@ class ListingFloors extends React.Component {
             [e.target.name]: e.target.value
         })
     }
+    handleChange3 = () => {
+        window.location.reload();
+
+    }
+
     handleSubmit = (e) => {
         e.preventDefault()
         const formData = {
@@ -274,33 +283,33 @@ class ListingFloors extends React.Component {
                                 <a href="#" className="pl-3 active">Active Projects</a>
                                 <a href="#" className="ml-3 ">Completed Projects</a>
                             </div> */}
-                            <div class="col-5">
-                                {/* <nav class="navbar navbar-expand-lg " >
-                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                        <ul class="navbar-nav mr-auto" style={{ fontFamily: "Roboto" }}>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Home
+                            <div className="col-5">
+                                {/* <nav className="navbar navbar-expand-lg " >
+                                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul className="navbar-nav mr-auto" style={{ fontFamily: "Roboto" }}>
+                                            <li className="nav-item">
+                                                <a className="nav-link" href="#">Home
                                             </a>
                                             </li>
                                             <p style={{ marginTop: "2px" }}>/</p>
-                                            <li class="nav-item" style={{padding:"0"}}>
+                                            <li className="nav-item" style={{padding:"0"}}>
                                                 <Link to="/listingProjects">Active Projects</Link>
-                                                {/* <a class="nav-link" href="#">Active Projects
+                                                {/* <a className="nav-link" href="#">Active Projects
                                             </a> *
                                             </li>
                                             <p style={{ marginTop: "2px" }}>/</p>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">{this.props.match.params.projectName}
+                                            <li className="nav-item">
+                                                <a className="nav-link" href="#">{this.props.match.params.projectName}
                                                 </a>
                                             </li>
 
                                         </ul>
                                     </div>
                                 </nav> */}
-                                <ul class="breadcrumb">
+                                <ul className="breadcrumb">
                                     <li><a href="#">Home</a></li>
                                     <li><Link to="/listingProjects">Active Projects</Link></li>
-                                    <li>{this.props.match.params.projectid}</li>
+                                    <li>{this.props.match.params.projectName}</li>
                                 </ul>
 
                             </div>
@@ -335,22 +344,22 @@ class ListingFloors extends React.Component {
                             </div>
                         </div>
 
-                        {/* <div class="col-3">
-                            <nav class="navbar navbar-expand-lg mt-2" >
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav mr-auto" style={{ fontFamily: "Roboto" }}>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Home
+                        {/* <div className="col-3">
+                            <nav className="navbar navbar-expand-lg mt-2" >
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul className="navbar-nav mr-auto" style={{ fontFamily: "Roboto" }}>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">Home
                                             </a>
                                         </li>
                                         <p style={{ marginTop: "2px" }}>/</p>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Active Projects
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">Active Projects
                                             </a>
                                         </li>
                                         <p style={{ marginTop: "2px" }}>/</p>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">{this.props.match.params.projectName}
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">{this.props.match.params.projectName}
                                             </a>
                                         </li>
 
@@ -433,19 +442,19 @@ class ListingFloors extends React.Component {
                                                             < td > {dateFormat(property.created_time, " dd-mm-yyyy")}</td>
 
                                                             <td>
-                                                                <div class="dropdown">
-                                                                    <button class="dropbtn">
+                                                                <div className="dropdown">
+                                                                    <button className="dropbtn">
                                                                         <img src={asset}
-                                                                            alt="" class="img-fluid asset_img" /></button>
-                                                                    <div class="dropdown-content">
+                                                                            alt="" className="img-fluid asset_img" /></button>
+                                                                    <div className="dropdown-content">
                                                                         {/* <a href="#" data-toggle="modal" data-target="#myModal1">
                                                                             <img src={Duplicate} alt="" title="Duplicate" />
                                                                         </a> */}
-                                                                        <a href="#" data-toggle="modal" data-target="#myModal1">
+                                                                        {/* <a href="#" data-toggle="modal" data-target="#myModal1">
                                                                             <img src={Edit} alt="" title="Edit" />
-                                                                        </a>
+                                                                        </a> */}
                                                                         <a href="#">
-                                                                            <img src={Delete} alt="" onClick={() => this.handleRemove(property.id)} title="Delete" />
+                                                                            <img src={Delete5} alt="" onClick={() => this.handleRemove(property.id)} title="Delete" />
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -469,7 +478,7 @@ class ListingFloors extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-6">
-                                <p className="Rectangle-4">Showing 1 to 10 of {this.state.floorsData.length} entries</p>
+                                <p className="Rectangle-4">Showing 1  of 10 entries</p>
                             </div>
                             <div className="col-6 p-0">
                                 <div className="pagination float-right mt-4">
@@ -500,13 +509,13 @@ class ListingFloors extends React.Component {
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <p className="text-center">CREATE NEW Property</p>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <button type="button" className="close" onClick={this.handleChange3} data-dismiss="modal">&times;</button>
                                 </div>
                                 <div className="modal-body">
                                     <form className="create-form">
                                         <div className="form-group">
                                             <label htmlFor="proper">Select a property type</label>
-                                            <select name="type" id="proper" class="form-control" onChange={this.handleChange} >
+                                            <select name="type" id="proper" className="form-control" onChange={this.handleChange} >
                                                 <option value="0">-Select-</option>
 
                                                 <option value="1">Villa</option>
@@ -519,35 +528,35 @@ class ListingFloors extends React.Component {
                                         {/* <div className="form-group"> */}
                                         {/* <input type="text" name="type" onChange={this.handleChange}
                                                 className="form-control" required />
-                                            <label HtmlFor="projectname"> property Type</label> */}
-                                        {/* <label HtmlFor="projectname" >Select a property type</label> */}
+                                            <label htmlFor="projectname"> property Type</label> */}
+                                        {/* <label htmlFor="projectname" >Select a property type</label> */}
 
 
                                         {/* {this.state.errors.name && <p style={{ color: "red" }}>The  Name field is required</p>}                                             <input type="text" name="property_owner" onChange={this.handleChange}
                                                 className="form-control" required /> */}
-                                        {/* <label HtmlFor="projectname">Property Owner</label> */}
+                                        {/* <label htmlFor="projectname">Property Owner</label> */}
                                         {/* {this.state.errors.name && <p style={{ color: "red" }}>The  Name field is required</p>} */}
                                         {/* <input type="text" name="status" onChange={this.handleChange}
                                             className="form-control" required />
-                                        <label HtmlFor="projectname"> status</label> */}
+                                        <label htmlFor="projectname"> status</label> */}
                                         {/* {this.state.errors.name && <p style={{ color: "red" }}>The  Name field is required</p>} */}
                                         {/* <input type="text" name="doorno" onChange={this.handleChange}
                                                 className="form-control" required />
                                         </div> */}
                                         <div className="form-group">
 
-                                            <label HtmlFor="projectname">DoorNO</label>
+                                            <label htmlFor="projectname">DoorNO</label>
                                             <input type="text" name="doorno" onChange={this.handleChange}
                                                 className="form-control" required />
                                         </div>
                                         <div className="form-group">
 
-                                            <label HtmlFor="projectname">Property Name</label>
+                                            <label htmlFor="projectname">Property Name</label>
                                             <input type="text" name="name" onChange={this.handleChange}
                                                 className="form-control" required />
                                         </div>
                                         <div className="form-group">
-                                            <label HtmlFor="projectname">Property Owner</label>
+                                            <label htmlFor="projectname">Property Owner</label>
                                             <input type="text" name="property_owner" onChange={this.handleChange}
                                                 className="form-control" required />
                                         </div>

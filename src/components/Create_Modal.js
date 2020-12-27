@@ -72,17 +72,17 @@ class CreateModal extends React.Component {
                                 <form className="create-form">
                                     <div className="form-group">
                                         <input type="text" name="name" onChange={this.handleChange} className="form-control" required />
-                                        <label HtmlFor="projectname"> Project Name</label>
+                                        <label htmlFor="projectname"> Project Name</label>
 
                                     </div>
                                     <div className="form-group">
                                         <input type="text" name="builder" onChange={this.handleChange} className="form-control" required />
-                                        <label HtmlFor="builder"> Builder/Promotor</label>
+                                        <label htmlFor="builder"> Builder/Promotor</label>
 
                                     </div>
                                     {/* <div className="form-group">
                                         <input type="text" name="assignee" onChange={this.handleChange} className="form-control" required />
-                                        <label HtmlFor="assignee"> Assignee</label>
+                                        <label htmlFor="assignee"> Assignee</label>
 
                                     </div> */}
 
@@ -90,20 +90,20 @@ class CreateModal extends React.Component {
                                     <div className="form-group">
                                         <input type="text" name="location" onChange={this.handleChange} className="form-control" required />
                                         <img src="assets/images/location.png" className="location-icon" alt="" />
-                                        <label HtmlFor="location">Project Location</label>
+                                        <label htmlFor="location">Project Location</label>
 
                                     </div>
 
                                     {/* <div className="form-group">
                                         <input type="text" name="owner" onChange={this.handleChange} className="form-control" required />
-                                        <label HtmlFor="builder">owner</label>
+                                        <label htmlFor="builder">owner</label>
 
                                     </div> */}
 
 
                                     <div className="form-group">
                                         <input name="type" onChange={this.handleChange} className="form-control" required />
-                                        <label HtmlFor="projectype">projectType</label>
+                                        <label htmlFor="projectype">projectType</label>
 
                                     </div>
                                     <button href="#" className="create_btn ml-2" onClick={this.handleSubmit}> Create</button>

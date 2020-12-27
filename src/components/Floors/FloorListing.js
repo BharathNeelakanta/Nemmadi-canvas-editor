@@ -34,7 +34,7 @@ class ListingFloors extends React.Component {
             projectData: {},
             search: "",
             ascending: false,
-            showPerPage: 5,
+            showPerPage: 10,
             floorsData: [],
             floorId: "",
             currentIndex: "",
@@ -126,7 +126,8 @@ class ListingFloors extends React.Component {
                 "Authorization": `Bearer ${localStorage.getItem("authToken")}`
             }
         })
-        const propertyResponse = await axios.get(`property/${response.data.properties[0].id}`, {
+        const propertyId = response && response.data && response.data.properties && response.data.properties[0] && response.data.properties[0].id
+        const propertyResponse = await axios.get(`property/${propertyId}`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("authToken")}`
@@ -206,6 +207,10 @@ class ListingFloors extends React.Component {
         this.setState({ floorId: id, currentIndex: index, type: type })
     }
 
+    handleChange3 = () => {
+        window.location.reload();
+
+    }
 
     handleChange = (e) => {
         this.setState({
@@ -270,13 +275,27 @@ class ListingFloors extends React.Component {
             project.name && project.name.toLowerCase().includes(this.state.search.toLowerCase()) ||
             project.status && project.status.toLowerCase().includes(this.state.search.toLowerCase()) ||
 
-            // project.project && project.project.toLowerCase().includes(this.state.search.toLowerCase()) ||
-            project.date && project.date.toLowerCase().includes(this.state.search.toLowerCase())
+            project.project && project.project.toLowerCase().includes(this.state.search.toLowerCase()) ||
+            project.type && project.type.toLowerCase().includes(this.state.search.toLowerCase())
         )
 
         let allFloorsData;
         return (
             <div>
+                <style>
+                    {
+                        `
+                        .report_btn{
+                            width: 92px!important;
+                            margin-left: 8px!important;
+                            margin-bottom: 6px!important;
+                            margin-top: 4px!important;
+                            text-align: center!important;
+                            font-size: 16px!important;
+                          }
+                        `
+                    }
+                </style>
                 <Navbar />
                 {/* <nav className="navbar navbar-expand-sm ">
                     <div className="container-fluid">
@@ -315,33 +334,33 @@ class ListingFloors extends React.Component {
                                 <a href="#" className="pl-3 active">Active Projects</a>
                                 <a href="#" className="ml-3 ">Completed Projects</a>
                             </div> */}
-                            <div class="col-5">
-                                {/* <nav class="navbar navbar-expand-lg " >
-                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                        <ul class="navbar-nav mr-auto" style={{ fontFamily: "Roboto" }}>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Home
+                            <div className="col-5">
+                                {/* <nav className="navbar navbar-expand-lg " >
+                                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul className="navbar-nav mr-auto" style={{ fontFamily: "Roboto" }}>
+                                            <li className="nav-item">
+                                                <a className="nav-link" href="#">Home
                                             </a>
                                             </li>
                                             <p style={{ marginTop: "2px" }}>/</p>
-                                            <li class="nav-item" style={{padding:"0"}}>
+                                            <li className="nav-item" style={{padding:"0"}}>
                                                 <Link to="/listingProjects">Active Projects</Link>
-                                                {/* <a class="nav-link" href="#">Active Projects
+                                                {/* <a className="nav-link" href="#">Active Projects
                                             </a> *
                                             </li>
                                             <p style={{ marginTop: "2px" }}>/</p>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">{this.props.match.params.projectName}
+                                            <li className="nav-item">
+                                                <a className="nav-link" href="#">{this.props.match.params.projectName}
                                                 </a>
                                             </li>
 
                                         </ul>
                                     </div>
                                 </nav> */}
-                                <ul class="breadcrumb">
-                                    <li><a href="#">Home</a></li>
+                                <ul className="breadcrumb">
+                                    <li><Link to="/listingProjects">Home</Link></li>
                                     <li><Link to="/listingProjects">Active Projects</Link></li>
-                                    <li> <Link to={`/projectDetails/${this.props.match.params.projectid}`}>{this.props.match.params.projectName}</Link></li>,
+                                    <li> <Link to={`/projectDetails/${this.props.match.params.projectid}/${this.props.match.params.projectName}`}>{this.props.match.params.projectName}</Link></li>
                                     <li>{this.state.projectData && this.state.projectData.type && this.state.projectData.type.name}</li>
 
 
@@ -349,17 +368,17 @@ class ListingFloors extends React.Component {
 
                             </div>
                             {/* <div className="col-3"></div> */}
-                            <div className="col-3">
+                            <div className="col-4">
                                 <input
                                     type="search"
                                     name="search"
                                     value={this.state.search}
                                     onChange={this.handleChange}
-                                    className="search_input" placeholder="Search" />
+                                    className="search_input" placeholder="Search by Floor Name" />
                                 <img src={search} alt="search" className="search_img" />
 
                             </div>
-                            <div className="col-3 ml-5">
+                            <div className="col-2 ml-5">
                                 <div className="row float-right">
                                     <div className="col-12">
                                         <button className="addfloor-btn  "
@@ -379,22 +398,22 @@ class ListingFloors extends React.Component {
                             </div>
                         </div>
 
-                        {/* <div class="col-3">
-                            <nav class="navbar navbar-expand-lg mt-2" >
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <ul class="navbar-nav mr-auto" style={{ fontFamily: "Roboto" }}>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Home
+                        {/* <div className="col-3">
+                            <nav className="navbar navbar-expand-lg mt-2" >
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul className="navbar-nav mr-auto" style={{ fontFamily: "Roboto" }}>
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">Home
                                             </a>
                                         </li>
                                         <p style={{ marginTop: "2px" }}>/</p>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Active Projects
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">Active Projects
                                             </a>
                                         </li>
                                         <p style={{ marginTop: "2px" }}>/</p>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">{this.props.match.params.projectName}
+                                        <li className="nav-item">
+                                            <a className="nav-link" href="#">{this.props.match.params.projectName}
                                             </a>
                                         </li>
 
@@ -466,6 +485,7 @@ class ListingFloors extends React.Component {
 
 
                                             return (
+                                                
                                                 // console.log("floorid", floor[index].id),
                                                 // console.log("projectid", floor.property),
                                                 < tr key={floor.id}>
@@ -477,26 +497,25 @@ class ListingFloors extends React.Component {
                                                     <td>{this.state.projectData.property_owner}</td>
                                                     <td>{this.state.projectData.doorno}</td>
                                                     <td>{floor.status}</td>
-                                                    <td>{floor.assigned_to}</td>
+                                                    <td>{floor.assigned_to === 3 ? "Jhon" : "---"}</td>
 
 
                                                     < td > {dateFormat(floor.created_time, " dd-mm-yyyy")}</td>
 
                                                     <td>
-                                                        <div class="dropdown">
-                                                            <button class="dropbtn">
+                                                        <div className="dropdown">
+                                                            <button className="dropbtn">
                                                                 <img src={asset}
-                                                                    alt="" class="img-fluid asset_img" /></button>
-                                                            <div class="dropdown-content">
-                                                                {/* <a href="#" data-toggle="modal" data-target="#myModal1">
-                                                                    <img src={Duplicate} alt="" onClick={() => this.handleEdit(floor.id, index, "copy")} title="Duplicate" />
-                                                                </a> */}
-                                                                <a href="#" data-toggle="modal" data-target="#myModal1">
-                                                                    <img src={Edit} alt="" onClick={() => this.handleEdit(floor.id, index, "edit")} title="Edit" />
-                                                                </a>
+                                                                    alt="" className="img-fluid asset_img" /></button>
+                                                            <div className="dropdown-content">
+                                                               
                                                                 <a href="#">
                                                                     <img src={Delete} alt="" onClick={() => this.handleRemove(floor.id)} title="Delete" />
                                                                 </a>
+                                                                {floor.status === "DESIGN" ? 
+                                                                (<Link to={`/FloorMeasurement/${floor.name}/${floor.id}/${this.props.match.params.projectid}`} className="btn btn-outline-primary report_btn">Report</Link>) : ""
+                                                                }
+
                                                             </div>
                                                         </div>
                                                     </td>
@@ -506,9 +525,6 @@ class ListingFloors extends React.Component {
 
                                         })
 
-
-
-
                                     }
 
                                 </tbody>
@@ -516,7 +532,7 @@ class ListingFloors extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-6">
-                                <p className="Rectangle-4">Showing 1 of {this.state.FloorsData.length}  entries</p>
+                                <p className="Rectangle-4">Showing 1 of {filteredData.length}  entries</p>
                             </div>
                             <div className="col-6 p-0">
                                 <div className="pagination float-right mt-4">
@@ -548,19 +564,19 @@ class ListingFloors extends React.Component {
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <p className="text-center">CREATE NEW FLOOR</p>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <button type="button" onClick={this.handleChange3} className="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div className="modal-body">
                                     <form className="create-form">
                                         <div className="form-group">
-                                            <label HtmlFor="projectname"> Floor Name</label>
+                                            <label htmlFor="projectname"> Floor Name</label>
 
                                             <input type="text" name="name" onChange={this.handleChange}
                                                 className="form-control" required />
 
 
                                             {/* {this.state.errors.name && <p style={{ color: "red" }}>The  Name field is required</p>} */}
-                                            {/* <label HtmlFor="projectid">Assigned To</label>
+                                            {/* <label htmlFor="projectid">Assigned To</label>
 
                                             <input type="text" name="assigned_to" onChange={this.handleChange}
                                                 className="form-control" required /> */}
@@ -570,15 +586,15 @@ class ListingFloors extends React.Component {
                                         <div className="form-group">
 
                                             <label htmlFor="proper">Select  Employee Id</label>
-                                            <select name="assigned_to" id="proper" class="form-control" onChange={this.handleChange} >
+                                            <select name="assigned_to" id="proper" className="form-control" onChange={this.handleChange} >
                                                 <option value="0">-Select-</option>
 
-                                                <option value="3">3</option>
+                                                <option value="3">Jhon</option>
                                             </select>
                                         </div>
                                         {/* <div className="form-group">
 
-                                            <label HtmlFor="projectname">Assigned To</label>
+                                            <label htmlFor="projectname">Assigned To</label>
                                             <input type="text" name="assigned_to" onChange={this.handleChange}
                                                 className="form-control" required />
                                         </div> */}

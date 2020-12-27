@@ -9,9 +9,12 @@ import sort from "../Assets/icon Nemmadi/sort-24px.svg"
 import searchIcon from "../Assets/icon Nemmadi/search.png"
 import asset from "../Assets/icon Nemmadi/asset-24px.svg"
 import Delete from "../Assets/Delete.png"
-import Delete11 from "../Assets/Delete11.png"
+import Delete5 from "../Assets/Delete5.jpeg"
+import edit5 from "../Assets/edit5.jpeg"
+import Mark5 from "../Assets/Mark5.jpeg"
+import copy5 from "../Assets/copy5.jpeg"
 
-import Edit from "../Assets/Edit.png"
+import edit1 from "../Assets/edit1.png"
 import Mark from "../Assets/Mark.png"
 import Duplicate from "../Assets/Duplicate.png"
 import CreateModal from "./CreateModal";
@@ -28,6 +31,7 @@ let headers = {
     "Content-Type": "application/json",
     "Authorization": `Bearer ${localStorage.getItem("authToken")}`
 }
+
 class ListingProjects extends React.Component {
     constructor(props) {
         super(props)
@@ -52,7 +56,9 @@ class ListingProjects extends React.Component {
             isFilter: false,
             filterSearch: "",
             filterBuilder: "",
-            projectType: null
+            filterType: "",
+            projectType: null,
+            sideFilter:[]
         }
     }
 
@@ -84,20 +90,23 @@ class ListingProjects extends React.Component {
 
     handleFilterChange = (e) => {
         this.setState({ filterSearch: e.target.value })
+        console.log("this.state.filterSearch",this.state.filterSearch);
     }
 
     handleFilterBuilderChange = (e) => {
         console.log("filter builder==>", e);
         this.setState({ filterBuilder: e.target.value })
+        console.log("this.state.filterBuilder",this.state.filterBuilder);
     }
 
     handleProjectTypeChange = (e) => {
-        console.log("handleProjectTypeChange==>", e);
+        console.log("handleProjectTypeChange==>", e.target);
         const projectData = this.state.projectData;
         // if(e.target.checked){
         //     this.setState({ projectType : e.target.checked })
         // }
         if (e.target.checked) {
+            this.setState({ filterType: e.target.name })
             const newState = projectData.filter(project => project.properties.length > 0 && project.properties[0].type === parseInt(e.target.name));
             this.setState({ filteredProjectsData: newState });
         } else {
@@ -105,7 +114,6 @@ class ListingProjects extends React.Component {
         }
         // this.setState({ projectType : e.target.checked })
     }
-
 
     handleClick = (e) => {
         this.props.history.push('/createProject')
@@ -181,12 +189,6 @@ class ListingProjects extends React.Component {
                 .then(response => {
                     console.log(response.status)
                     if (response.status = 204) {
-                        // Swal.fire({
-                        //     position: 'top-end',
-                        //     icon: 'success',
-                        //     title: 'Your are successfully deleted record',
-                        //     timer: 1500
-                        // })
                         toast('Deleted')
                         this.loadProjects()
                     }
@@ -197,11 +199,7 @@ class ListingProjects extends React.Component {
                 })
         }
     }
-    // const[showPerPage, setShowPerPage] = useState(10);
-    // const[pagination, setPagination] = useState({
-    //     start: 0,
-    //     end: showPerPage,
-    // });
+
 
     onPaginationChange = (start, end) => {
         let pagination = this.state.pagination;
@@ -223,12 +221,14 @@ class ListingProjects extends React.Component {
         let filteredData;
 
 
-
         filteredData = filteredProjectsData.filter((project, i) =>
             // project.properties && project.properties.length >0 && project.properties.type == Number(projectType) ||
             project.name && project.name.toLowerCase().includes(search.toLowerCase() || filterBuilder.toLowerCase() || filterSearch.toLowerCase()) ||
             project.location && project.location.toLowerCase().includes(search.toLowerCase() || filterBuilder.toLowerCase() || filterSearch.toLowerCase()) ||
-            project.builder && project.builder.toLowerCase().includes(search.toLowerCase() || filterBuilder.toLowerCase() || filterSearch.toLowerCase())
+            project.builder && project.builder.toLowerCase().includes(search.toLowerCase() || filterBuilder.toLowerCase() || filterSearch.toLowerCase()) 
+            // ||
+            // project.properties && project.properties[0].owner.toLowerCase().includes(search.toLowerCase() || filterBuilder.toLowerCase() || filterSearch.toLowerCase())
+
         )
 
         let activeProjectsDataOnly = filteredData.slice(pagination.start, pagination.end).map((project, index) => {
@@ -241,7 +241,13 @@ class ListingProjects extends React.Component {
                     <td><Link to={`listingFloor/${project.name}/${project.id} `}>{project.name} </Link></td>
                     <td>{project.location}</td>
                     <td>{project.builder}</td>
-                    <td>{project.properties && project.properties[0] && project.properties[0].type ? project.properties[0].type : "---"}</td>
+                    {/* <td>{project.properties && project.properties[0] && project.properties[0].type == 1 ? "Villa" : project.properties[0].type == 2 ? "Apartment" : "Duplex"}</td> */}
+                    <td>
+                        {project.properties && project.properties[0] && project.properties[0].type === 1 ? "Villa" : "" }
+                        {project.properties && project.properties[0] && project.properties[0].type === 2 ? "Apartment" : "" }
+                        {project.properties && project.properties[0] && project.properties[0].type === 3 ? "Duplex" : "" }
+                    </td>
+                    {/* <td>{project.properties && project.properties[0] && project.properties[0].type ? project.properties[0].type : "---"}</td> */}
                     <td>{project.properties && project.properties[0] && project.properties[0].property_owner ? project.properties[0].property_owner : "---"}</td>
                     <td>{project.properties && project.properties[0] && project.properties[0].doorno ? project.properties[0].doorno : "---"}</td>
                     <td>{project.properties && project.properties[0] && project.properties[0].name ? project.properties[0].name : "---"}</td>
@@ -255,21 +261,28 @@ class ListingProjects extends React.Component {
                                     alt="" className="img-fluid asset_img" /></button>
                             <div className="dropdown-content">
                                 <a href="#">
-                                    <img src={Duplicate} alt="" title="Duplicate" data-toggle="modal"
-                                        data-target="#myModal"
-                                        onClick={() => this.handleEdit(project.id, index, "copy")} />
+                                    <img src={copy5} alt="" title="Duplicate"
+                                    // data-toggle="modal"
+                                    //     data-target="#myModal"
+                                    //     onClick={() => this.handleEdit(project.id, index, "copy")} 
+                                    />
                                 </a>
                                 <a href="#">
-                                    <img src={Mark} alt="" title="Mark" data-toggle="modal"
-                                        data-target="#myModal" onClick={() => this.handleEdit(project.id, index, "completed")} />
+                                    <img src={Mark5} alt="" title="Mark"
+                                    //  data-toggle="modal"
+                                    // data-target="#myModal"
+                                    //  onClick={() => this.handleEdit(project.id, index, "completed")} 
+                                    />
                                 </a>
                                 <a href="#">
-                                    <img src={Edit} alt="" title="Edit" data-toggle="modal"
-                                        data-target="#myModal"
-                                        onClick={() => this.handleEdit(project.id, index, "edit")} />
+                                    <img src={edit5} className="image" alt="" className="image1" title="Edit"
+                                    // data-toggle="modal"
+                                    //     data-target="#myModal"
+                                    //     onClick={() => this.handleEdit(project.id, index, "edit")} 
+                                    />
                                 </a>
                                 <a href="#">
-                                    <img className="image1" src={Delete11} alt="" title="Delete" onClick={() => this.handleRemove(project.id)} />
+                                    <img className="" src={Delete5} alt="" title="Delete" onClick={() => this.handleRemove(project.id)} />
                                 </a>
                             </div>
                         </div>
@@ -292,7 +305,18 @@ class ListingProjects extends React.Component {
                     <td><Link to={`/listingFloor/${project.name}/${project.id} `}>{project.name} </Link></td>
                     <td>{project.location}</td>
                     <td>{project.builder}</td>
-                    <td>{project.properties && project.properties[0] && project.properties[0].type ? project.properties[0].type : "---"}</td>
+
+                        if(project.properties[0].type==1){
+                        <td>Villa</td>
+                    }
+                        elseif(project.properties[0].type==2){
+                        <td>Apartment</td>
+                    }
+                    elseif(project.properties[0].type==3){
+                        <td>Duplex</td>
+                    }
+
+                    {/* <td>{project.properties && project.properties[0] && project.properties[0].type ? project.properties[0].type : "---"}</td> */}
                     <td>{project.properties && project.properties[0] && project.properties[0].property_owner ? project.properties[0].property_owner : "---"}</td>
                     <td>{project.properties && project.properties[0] && project.properties[0].doorno ? project.properties[0].doorno : "---"}</td>
                     <td>{project.properties && project.properties[0] && project.properties[0].name ? project.properties[0].name : "---"}</td>
@@ -306,18 +330,18 @@ class ListingProjects extends React.Component {
                                     alt="" className="img-fluid asset_img" /></button>
                             <div className="dropdown-content">
                                 <a href="#">
-                                    <img src={Duplicate} alt="" title="Duplicate" data-toggle="modal"
+                                    <img src={copy5} alt="" title="Duplicate" data-toggle="modal"
                                         data-target="#myModal" onClick={() => this.handleEdit(project.id, index, "copy")} />
                                 </a>
                                 <a href="#">
-                                    <img src={Mark} alt="" title="Mark" data-toggle="modal" data-target="#myModal" onClick={() => this.handleEdit(project.id, index, "completed")} />
+                                    <img src={Mark5} alt="" title="Mark" data-toggle="modal" data-target="#myModal" onClick={() => this.handleEdit(project.id, index, "completed")} />
                                 </a>
                                 <a href="#">
-                                    <img src={Edit} alt="" title="Edit" data-toggle="modal" data-target="#myModal"
+                                    <img src={edit5} alt="" title="Edit" data-toggle="modal" data-target="#myModal"
                                         onClick={() => this.handleEdit(project.id, index, "edit")} />
                                 </a>
                                 <a href="#">
-                                    <img src={Delete11} alt="" title="Delete" onClick={() => this.handleRemove(project.id)} />
+                                    <img src={Delete5} alt="" title="Delete" onClick={() => this.handleRemove(project.id)} />
                                 </a>
                             </div>
                         </div>
@@ -348,16 +372,16 @@ class ListingProjects extends React.Component {
                                 <a href="#" className={this.state.activeTab === "active" ? "pl-3 active" : "pl-3"} onClick={() => this.handleActiveTab("active")}>Active Projects</a>
                                 <a href="#" className={this.state.activeTab === "completed" ? "ml-3 active" : "ml-3"} onClick={() => this.handleActiveTab("completed")}>Completed Projects</a>
                             </div>
-                            <div className="col-3">
+                            <div className="col-4">
                                 <input
                                     type="search"
                                     name="search"
                                     value={this.state.search}
                                     onChange={this.handleChange}
-                                    className="search_input" placeholder="Search" />
+                                    className="search_input" placeholder="Search by Name, Location, Builder" />
                                 <img src={searchIcon} alt="search" className="search_img" />
                             </div>
-                            <div className="offset-1 col-4">
+                            <div className="col-4">
                                 <div className="row float-right">
                                     <button className="filter_btn pr-2" onClick={this.handleToggleFilter}>
                                         <img src={filter}

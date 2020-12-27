@@ -199,7 +199,7 @@ class CreateModal extends React.Component {
                         <div className="modal-content">
                             <div className="modal-header">
                                 {/* <p className="text-center">CREATE NEW PROJECT</p> */}
-                                <h4 class="modal-title">{this.state.type === "edit" ? "Edit Project" : "Duplicate Project"}</h4>
+                                <h4 className="modal-title">{this.state.type === "edit" ? "Edit Project" : "Duplicate Project"}</h4>
 
                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
 
@@ -207,7 +207,7 @@ class CreateModal extends React.Component {
                             <div className="modal-body">
                                 <form className="create-form">
                                     <div className="form-group">
-                                        <label HtmlFor="projectname"> Project Name</label>
+                                        <label htmlFor="projectname"> Project Name</label>
                                         <input
                                             type="text"
                                             name="name"
@@ -218,7 +218,7 @@ class CreateModal extends React.Component {
 
                                     </div>
                                     <div className="form-group">
-                                        <label HtmlFor="builder"> Builder/Promotor</label>
+                                        <label htmlFor="builder"> Builder/Promotor</label>
                                         <input
                                             type="text"
                                             name="builder"
@@ -229,7 +229,7 @@ class CreateModal extends React.Component {
 
                                     </div>
                                     <div className="form-group">
-                                        <label HtmlFor="location">Project Location</label>
+                                        <label htmlFor="location">Project Location</label>
                                         <input
                                             type="text"
                                             name="location"
@@ -248,7 +248,7 @@ class CreateModal extends React.Component {
                                                   this.state.addNewProject.type}
                                             onChange={this.handleChange}
                                             className="form-control" required />
-                                        <label HtmlFor="projectype">Project Type</label>
+                                        <label htmlFor="projectype">Project Type</label>
 
                                     </div> */}
                                     <button className="create_btn mt-4 ml-2" onClick={this.handleSubmit}> Create</button>

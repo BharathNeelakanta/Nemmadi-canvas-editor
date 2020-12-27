@@ -8,7 +8,9 @@ import logout from "./Assets/login.jpeg"
 import image15569 from "./Assets/15569.jpeg"
 // import createProjectModal from "./createProjectModal"
 import CreateProject from "./CreateProject"
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
 class Navbar extends React.Component {
     constructor(props) {
         super(props)
@@ -30,6 +32,11 @@ class Navbar extends React.Component {
 
 
     }
+    handleLogout = () => {
+        localStorage.clear();
+
+        window.location.href = '/';
+    }
     handleReset = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -42,16 +49,18 @@ class Navbar extends React.Component {
             email: this.state.email
         }
         console.log(formData)
-        axios.post("/reset/ ", formData, {
+        axios.post("https://nbk.synctactic.ai/reset/", formData, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("authToken")}`
             }
         })
             .then(response => {
+                toast("Mail Sent Successfully for Reset")
                 console.log(response)
             })
             .catch((error) => {
+                toast.error("Enter valid Email address")
                 console.log(error)
             })
     }
@@ -63,28 +72,28 @@ class Navbar extends React.Component {
                 <nav className="navbar navbar-expand-sm">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <a className="navbar-brand" href="#">
+                            <a className="navbar-brand" href="/listingProjects">
                                 <img src={nemmadi_logo} alt="logo" className="img-fluid" />
                                 <span style={{ marginRight: "15px" }}>Nemmadi</span>
                             </a>
                         </div>
                         <ul className="navbar-nav ml activated-bg">
-                            { path === '/people' ?  
-                            <Fragment>
-                            <li className="nav-item ">
-                                <Link to="/listingProjects" className="nav-link" href="#">Properties</Link>
-                            </li>
-                            <li className="nav-item">
-                            <a className="nav-link active" href="# ">People</a>
-                                
-                            </li>
-                            
-                            </Fragment>
-                            :
-                            <Fragment>
-                            <li className="nav-item "><a className="nav-link active" href="# ">Properties</a></li>
-                            <li className="nav-item"><Link to="/people" className="nav-link" href="#">People</Link></li>
-                            </Fragment>
+                            {path === '/people' ?
+                                <Fragment>
+                                    <li className="nav-item ">
+                                        <Link to="/listingProjects" className="nav-link" href="#">Properties</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link active" href="# ">People</a>
+
+                                    </li>
+
+                                </Fragment>
+                                :
+                                <Fragment>
+                                    <li className="nav-item "><a className="nav-link active" href="# ">Properties</a></li>
+                                    <li className="nav-item"><Link to="/people" className="nav-link" href="#">People</Link></li>
+                                </Fragment>
                             }
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
@@ -126,21 +135,24 @@ class Navbar extends React.Component {
                             <li className="pl-4"><Link to="" className="create_btn"
                                 data-toggle="modal"
                                 data-target="#myModalCreateProject"  > Create Project</Link></li>
-                                <div className="logout">
+                            <div className="logout">
                                 <div className="dropdown">
                                     <i href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"
                                         aria-haspopup="true" aria-expanded="true">
                                         <li className="pl-2"><a className="user" href="#"></a>
-                                            <img src={image15569} style={{width:"40px"}}/></li> </i>
+                                            <img src={image15569} style={{ width: "40px" }} /></li> </i>
                                     <ul className="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                         <li><a href="" data-toggle="modal"
                                             data-target="#exampleModal">
                                             <img src={key} className="key_img " />
                                            Change Password </a></li>
 
-                                        <li><a href="">
+                                        <li>
+                                            {/* <Link to="/" onClick={this.handleLogout} >
                                             <img src={logout} className="login_img" />
-                                            Logout</a></li>
+                                            Logout</Link> */}
+                                            <Link to="/" onClick={this.handleLogout}><img src={logout} className="login_img" />Logout</Link>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -149,44 +161,44 @@ class Navbar extends React.Component {
                     </div>
                 </nav>
                 <div
-                    class="modal fade"
+                    className="modal fade"
                     id="exampleModal"
-                    tabindex="-1"
+                    tabIndex="-1"
                     role="dialog"
                     aria-labelledby="exampleModalLabel"
                     aria-hidden="true" >
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Change Password</h5>
                                 <button
                                     type="button"
-                                    class="close"
+                                    className="close"
                                     data-dismiss="modal"
                                     aria-label="Close"
                                 >
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-group">
+                            <div className="modal-body">
+                                <div className="form-group">
                                     <input onChange={this.handleReset}
                                         type="text"
                                         name="email"
-                                        class="form-control"
+                                        className="form-control"
                                         placeholder="Enter Emailid"
                                     /><br />
                                 </div><br />
                                 <button type="button"
-                                    className="create_btn" onClick={this.handleSubmit}>Submit</button>
+                                    className="create_btn" data-dismiss="modal" onClick={this.handleSubmit}>Submit</button>
                                 <button type="button" className="btn btn_cancel ml-2" data-dismiss="modal">
                                     Cancel
                                 </button>
                             </div>
                         </div>
                     </div>
-            </div>
-            <CreateProject/>
+                </div>
+                <CreateProject />
             </div>
         )
     }
