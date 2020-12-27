@@ -128,7 +128,6 @@ class ImageMapEditor extends Component {
         headers: myHeaders,
         redirect: "follow",
       };
-      console.log("requestOptions ::", requestOptions);
       fetch(`https://nbk.synctactic.ai/floors/${floorId}/`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
