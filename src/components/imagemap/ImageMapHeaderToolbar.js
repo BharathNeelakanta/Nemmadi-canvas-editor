@@ -178,22 +178,30 @@ class ImageMapHeaderToolbar extends Component {
     return items.map(item => this.renderItem(item))
   }
 
-renderItem = (item, centered) => (
-    item.type === 'drawing' ? (
-      <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-group">
+renderItem = (item, centered) => {
+  console.log("item.name ::::",item.name);
+  let color = 'red';
+  let icon = item.icon.name;
+  if(item.name === 'Exterior'){
+    color = 'DeepPink'
+  }else if(item.name === 'Interior'){
+    color = 'blue'
+  }else if(item.name === 'Partition'){
+    color = 'grey'
+    icon = 'ellipsis-h'
+  }
+   return  item.type === 'drawing' ? (
         <div
             key={item.name}
             draggable
             onClick={e => this.handlers.onDrawingItem(item)}
         >
-            <div style={{display:"flex" ,margin:"0px 10px"}}>
-                <div style={{marginRight:"10px"}}><Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} /></div>
+            <div style={{display:"flex","flex-direction":"column",justifyContent:"center",alignItems:"center" ,margin:"8px 10px"}}>
+                <Icon name={icon} prefix={item.icon.prefix} style={item.icon.style} color={color} size = {1.5}/>
                 <div>{item.name}</div>
             </div>
         </div>
-        </FlexItem>
     ) : (
-      <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-group">
         <div
             key={item.name}
             draggable
@@ -201,19 +209,18 @@ renderItem = (item, centered) => (
             onDragStart={e => this.events.onDragStart(e, item)}
             onDragEnd={e => this.events.onDragEnd(e, item)}
             // className="rde-editor-items-item"
-            style={{ justifyContent:  'center'}}
+            // style={{ justifyContent:  'center'}}
         >
-            <div style={{display:"flex" ,margin:"0px 10px"}}>
-               <div  style={{marginRight:"10px"}}><Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} /></div> 
+            <div style={{display:"flex", "flex-direction":"column",justifyContent:"center",alignItems:"center",margin:"9px 10px"}}>
+               <Icon name={item.icon.name} prefix={item.icon.prefix} style={item.icon.style} size = {1.5}/>
                <div>{item.name}</div>
             </div>
                     {/* <div className="">
                         {item.name}
                     </div> */}
         </div>
-        </FlexItem>
     )
-)
+                  }
 
   render() {
     const { canvasRef, selectedItem, descriptors } = this.props;
@@ -223,7 +230,7 @@ renderItem = (item, centered) => (
       : false;
     console.log("prop", selectedItem);
     return (
-      <FlexBox className="rde-editor-header-toolbar-container" flex="1">
+      <FlexBox className="rde-editor-header-toolbar-container" flex="1" style={{"justify-content":"center"}}>
         {/* <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-list">
           <CommonButton
             className="rde-action-btn"
@@ -297,24 +304,73 @@ renderItem = (item, centered) => (
           />
         </FlexItem> */}
         <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-group">
+          <div style = {{"display":"flex","flex-direction":"column","margin":"0px 10px", "align-items":"center"}}>
           <CommonButton
             className="rde-action-btn"
             shape="circle"
             disabled={isCropping}
             onClick={() => canvasRef.handler.toGroup()}
             icon="object-group"
-            iconStyle={{fontSize:'2em'}}
+            iconStyle={{fontSize:'1.5em'}}
             size = {2}
             tooltipTitle={i18n.t("action.object-group")}
           />
+          <div style={{"cursor":"pointer","margin-top": "-5px"}} onClick={() => canvasRef.handler.toGroup()}>Group</div>
+          </div>
+          <div style = {{"display":"flex","flex-direction":"column","margin":"0px 10px", "align-items":"center"}}>
           <CommonButton
             className="rde-action-btn"
             shape="circle"
             disabled={isCropping}
             onClick={() => canvasRef.handler.toActiveSelection()}
             icon="object-ungroup"
+            iconStyle={{fontSize:'1.5em'}}
+            size = {2}
             tooltipTitle={i18n.t("action.object-ungroup")}
           />
+          <div style={{"cursor":"pointer","margin-top": "-5px"}} onClick={() => canvasRef.handler.toActiveSelection()}>Ungroup</div>
+          </div>
+
+          <div style = {{"display":"flex","flex-direction":"column","margin":"0px 10px", "align-items":"center"}}>
+          <CommonButton
+            className="rde-action-btn"
+            shape="circle"
+            disabled={isCropping}
+            onClick={() => canvasRef.handler.remove()}
+            icon="trash"
+            iconStyle={{fontSize:'1.5em'}}
+            size = {2}
+            tooltipTitle={i18n.t("action.delete")}
+          />
+          <div style={{"cursor":"pointer","margin-top": "-5px"}} onClick={() => canvasRef.handler.remove()}>Delete</div>
+          </div>
+          {Object.keys(descriptors).map((key) => this.renderItems(descriptors[key]))}
+          <CommonButton
+            className="rde-action-btn"
+            disabled={
+              isCropping ||
+              (canvasRef && !canvasRef.handler.transactionHandler.undos.length)
+            }
+            onClick={() => canvasRef.handler.transactionHandler.undo()}
+          >
+            <div style={{"display":"flex","flex-direction":"column"}}>
+            <Icon name="undo-alt"/>
+            <div>Undo</div>
+            </div>
+          </CommonButton>
+          <CommonButton
+            className="rde-action-btn"
+            disabled={
+              isCropping ||
+              (canvasRef && !canvasRef.handler.transactionHandler.redos.length)
+            }
+            onClick={() => canvasRef.handler.transactionHandler.redo()}
+          >
+           <div style={{"display":"flex","flex-direction":"column"}}>
+            <Icon name="redo-alt"/>
+            <div>Redo</div>
+            </div>
+          </CommonButton>
         </FlexItem>
         {/* <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-crop">
           <CommonButton
@@ -348,8 +404,8 @@ renderItem = (item, centered) => (
             tooltipTitle={i18n.t("action.crop-cancel")}
           />
         </FlexItem> */}
-        {/* <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-operation">
-          <CommonButton
+        {/* <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-operation"> */}
+          {/* <CommonButton
             className="rde-action-btn"
             shape="circle"
             disabled={isCropping}
@@ -364,41 +420,28 @@ renderItem = (item, centered) => (
             onClick={() => canvasRef.handler.duplicate()}
             icon="clone"
             tooltipTitle={i18n.t("action.clone")}
-          />
-          <CommonButton
+          /> */}
+          {/* <CommonButton
             className="rde-action-btn"
             shape="circle"
             disabled={isCropping}
             onClick={() => canvasRef.handler.remove()}
             icon="trash"
             tooltipTitle={i18n.t("action.delete")}
-          />
+          /> */}
+          {/* <CommonButton
+            className="rde-action-btn"
+            shape="circle"
+            disabled={isCropping}
+            onClick={() => canvasRef.handler.insertImage()}
+            icon="image"
+            tooltipTitle={'Insert'}
+          /> */}
+        {/* </FlexItem> */}
+         
+        {/* <FlexItem className="rde-canvas-toolbar">
+          
         </FlexItem> */}
-         {Object.keys(descriptors).map((key) => this.renderItems(descriptors[key]))}
-        <FlexItem className="rde-canvas-toolbar rde-canvas-toolbar-history">
-          <CommonButton
-            className="rde-action-btn"
-            disabled={
-              isCropping ||
-              (canvasRef && !canvasRef.handler.transactionHandler.undos.length)
-            }
-            onClick={() => canvasRef.handler.transactionHandler.undo()}
-          >
-            <Icon name="undo-alt" style={{ marginRight: 8 }} />
-            Undo
-          </CommonButton>
-          <CommonButton
-            className="rde-action-btn"
-            disabled={
-              isCropping ||
-              (canvasRef && !canvasRef.handler.transactionHandler.redos.length)
-            }
-            onClick={() => canvasRef.handler.transactionHandler.redo()}
-          >
-            Redo
-            <Icon name="redo-alt" style={{ marginLeft: 8 }} />
-          </CommonButton>
-        </FlexItem>
       </FlexBox>
     );
   }

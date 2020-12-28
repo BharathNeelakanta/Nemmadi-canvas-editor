@@ -90,6 +90,7 @@ class ImageMapEditor extends Component {
     dataSources: [],
     editing: false,
     descriptors: {},
+    openImageDragger: true
   };
 
   componentDidMount() {
@@ -644,6 +645,9 @@ class ImageMapEditor extends Component {
     onTransaction: (transaction) => {
       this.forceUpdate();
     },
+    oninsertImage: () => {
+      this.setState({openImageDragger: false})
+    }
   };
 
   handlers = {
@@ -785,6 +789,12 @@ class ImageMapEditor extends Component {
     onSaveImage: () => {
       this.canvasRef.handler.saveCanvasImage();
     },
+    goBack: () => {
+      this.props.history.goBack();
+    },
+    insertImage: () => {
+      this.setState({openImageDragger: false})
+    }
   };
 
   shortcutHandlers = {
@@ -834,6 +844,7 @@ class ImageMapEditor extends Component {
       dataSources,
       editing,
       descriptors,
+      openImageDragger
     } = this.state;
     const {
       onAdd,
@@ -855,11 +866,13 @@ class ImageMapEditor extends Component {
       onChangeStyles,
       onChangeDataSources,
       onSaveImage,
+      goBack,
+      insertImage
     } = this.handlers;
     const action = (
       <React.Fragment>
-        <button type="button" class="btn btn-outline-secondary m-2" onClick = {onDownload}>Download Image</button>
-        <button type="button" class="btn btn-outline-secondary m-2" onClick = {onUpload}>Publish</button>
+        <button type="button" class="btn btn-outline-secondary m-2" onClick = {goBack}>Back</button>
+        <button type="button" class="btn btn-outline-secondary m-2" onClick = {onDownload}>Publish</button>
         {/* <CommonButton
           className="rde-action-btn"
           shape="circle"
@@ -923,7 +936,7 @@ class ImageMapEditor extends Component {
           descriptors={descriptors}
         />
         <div className="rde-editor-canvas-container">
-          <div className="rde-editor-header-toolbar">
+          <div className="rde-editor-header-toolbar" style={{"height":"50px !important"}}>
             <ImageMapHeaderToolbar
               canvasRef={this.canvasRef}
               selectedItem={selectedItem}
@@ -976,6 +989,9 @@ class ImageMapEditor extends Component {
           onChangeDataSources={onChangeDataSources}
           animations={animations}
           styles={styles}
+          openImageDragger = {openImageDragger}
+          insertImage= {insertImage}
+
           dataSources={dataSources}
         />
         <ImageMapPreview

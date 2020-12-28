@@ -219,8 +219,8 @@ class DrawingHandler {
             const { x, y } = absolutePointer;
             const circle = new fabric.Circle({
                 radius: 3,
-                fill: '#FF0000',
-                stroke: '#FF0000',
+                fill: 'blue',
+                stroke: 'blue',
                 strokeWidth: 0.5,
                 left: x,
                 top: y,
@@ -233,14 +233,14 @@ class DrawingHandler {
             });
             if (!this.handler.pointArray.length) {
                 circle.set({
-                    fill: 'red',
+                    fill: 'blue',
                 });
             }
             const points = [x, y, x, y];
             this.handler.activeLine = new Line(points, {
                 strokeWidth: 2,
-                fill: '#FF0000',
-                stroke: '#FF0000',
+                fill: 'blue',
+                stroke: 'blue',
                 originX: 'center',
                 originY: 'center',
                 selectable: false,
@@ -269,7 +269,7 @@ class DrawingHandler {
                 id,
                 points,
                 type: 'line',
-                stroke: '#FF0000',
+                stroke: 'blue',
                 strokeWidth: 3,
                 opacity: 1,
                 objectCaching: !this.handler.editable,
@@ -386,8 +386,8 @@ class DrawingHandler {
             const { x, y } = absolutePointer;
             const circle = new fabric.Circle({
                 radius: 3,
-                fill: 'green',
-                stroke: 'green',
+                fill: 'grey',
+                stroke: 'grey',
                 strokeWidth: 0.5,
                 left: x,
                 top: y,
@@ -400,15 +400,15 @@ class DrawingHandler {
             });
             if (!this.handler.pointArray.length) {
                 circle.set({
-                    fill: 'green',
+                    fill: 'grey',
                 });
             }
             const points = [x, y, x, y];
             this.handler.activeLine = new DottedLine(points, {
                 strokeDashArray: [5, 5],
                 strokeWidth: 2,
-                fill: 'green',
-                stroke: 'green',
+                fill: 'grey',
+                stroke: 'grey',
                 originX: 'center',
                 originY: 'center',
                 selectable: false,
@@ -437,7 +437,7 @@ class DrawingHandler {
                 id,
                 points,
                 type: 'dottedline',
-                stroke: 'green',
+                stroke: 'grey',
                 strokeWidth: 3,
                 strokeDashArray: [5, 5],
                 opacity: 1,
@@ -474,8 +474,8 @@ class DrawingHandler {
             const { x, y } = absolutePointer;
             const circle = new fabric.Circle({
                 radius: 3,
-                fill: 'blue',
-                stroke: 'blue',
+                fill: 'DeepPink',
+                stroke: 'DeepPink',
                 strokeWidth: 0.5,
                 left: x,
                 top: y,
@@ -494,8 +494,8 @@ class DrawingHandler {
             const points = [x, y, x, y];
             this.handler.activeLine = new Partition(points, {
                 strokeWidth: 2,
-                fill: 'blue',
-                stroke: 'blue',
+                fill: 'DeepPink',
+                stroke: 'DeepPink',
                 originX: 'center',
                 originY: 'center',
                 selectable: false,
@@ -524,7 +524,7 @@ class DrawingHandler {
                 id,
                 points,
                 type: 'partition',
-                stroke: 'blue',
+                stroke: 'DeepPink',
                 strokeWidth: 3,
                 opacity: 1,
                 objectCaching: !this.handler.editable,

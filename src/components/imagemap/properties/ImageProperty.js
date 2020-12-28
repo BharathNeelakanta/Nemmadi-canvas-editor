@@ -14,7 +14,7 @@ export default {
         const imageLoadType = data.imageLoadType || 'file';
         return (
             <React.Fragment>
-                <Form.Item label={i18n.t('imagemap.image.image-load-type')} colon={false}>
+                {/* <Form.Item label={i18n.t('imagemap.image.image-load-type')} colon={false}>
                     {
                         getFieldDecorator('imageLoadType', {
                             initialValue: imageLoadType,
@@ -25,10 +25,10 @@ export default {
                             </Radio.Group>,
                         )
                     }
-                </Form.Item>
+                </Form.Item> */}
                 {
                     imageLoadType === 'file' ? (
-                        <Form.Item label={i18n.t('common.file')} colon={false}>
+                        <Form.Item style={{"margin-top":"100px"}} colon={false}>
                             {
                                 getFieldDecorator('file', {
                                     rules: [{

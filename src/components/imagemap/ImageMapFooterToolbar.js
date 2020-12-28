@@ -97,14 +97,37 @@ class ImageMapFooterToolbar extends Component {
                         />
                         <CommonButton
                             type={interactionMode === 'grab' ? 'primary' : 'default'}
-                            style={{ borderBottomRightRadius: '8px', borderTopRightRadius: '8px' }}
+                            // style={{ borderBottomRightRadius: '8px', borderTopRightRadius: '8px' }}
                             onClick={() => { grab(); }}
                             tooltipTitle={i18n.t('action.grab')}
                             icon="hand-rock"
                         />
+                         <CommonButton
+                            // style={{ borderBottomLeftRadius: '8px', borderTopLeftRadius: '8px' }}
+                            onClick={() => { canvasRef.handler.zoomHandler.zoomOut(); }}
+                            icon="search-minus"
+                            tooltipTitle={i18n.t('action.zoom-out')}
+                        />
+                        <CommonButton
+                            onClick={() => { canvasRef.handler.zoomHandler.zoomOneToOne(); }}
+                            tooltipTitle={i18n.t('action.one-to-one')}
+                        >
+                            {`${zoomValue}%`}
+                        </CommonButton>
+                        <CommonButton
+                            onClick={() => { canvasRef.handler.zoomHandler.zoomToFit(); }}
+                            tooltipTitle={i18n.t('action.fit')}
+                            icon="expand"
+                        />
+                        <CommonButton
+                            style={{ borderBottomRightRadius: '8px', borderTopRightRadius: '8px' }}
+                            onClick={() => { canvasRef.handler.zoomHandler.zoomIn(); }}
+                            icon="search-plus"
+                            tooltipTitle={i18n.t('action.zoom-in')}
+                        />
                     </Button.Group>
                 </div>
-                <div className="rde-editor-footer-toolbar-zoom">
+                {/* <div className="rde-editor-footer-toolbar-zoom">
                     <Button.Group>
                         <CommonButton
                             style={{ borderBottomLeftRadius: '8px', borderTopLeftRadius: '8px' }}
@@ -130,7 +153,7 @@ class ImageMapFooterToolbar extends Component {
                             tooltipTitle={i18n.t('action.zoom-in')}
                         />
                     </Button.Group>
-                </div>
+                </div> */}
                 <div className="rde-editor-footer-toolbar-preview">
                     <Tooltip title={i18n.t('action.preview')}>
                         <Switch checked={preview} onChange={onChangePreview} />

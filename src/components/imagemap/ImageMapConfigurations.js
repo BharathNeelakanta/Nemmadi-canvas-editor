@@ -27,6 +27,7 @@ class ImageMapConfigurations extends Component {
 
     state = {
         activeKey: 'map',
+        collapse: true
     }
 
     handlers = {
@@ -53,8 +54,11 @@ class ImageMapConfigurations extends Component {
             onChangeAnimations,
             onChangeStyles,
             onChangeDataSources,
+            openImageDragger,
+            insertImage
         } = this.props;
         const { collapse, activeKey } = this.state;
+        console.log("inside ++++++",collapse, activeKey)
         const { onChangeTab, onCollapse } = this.handlers;
         const className = classnames('rde-editor-configurations', {
             minimize: collapse,

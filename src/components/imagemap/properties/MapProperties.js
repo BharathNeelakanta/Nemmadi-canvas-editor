@@ -14,16 +14,19 @@ class MapProperties extends Component {
 
     render() {
         const { canvasRef, form } = this.props;
-        const showArrow = false;
+        console.log("inside mapProps ::::",this.props);
+        const showArrow = true;
         if (canvasRef) {
             return (
                 <Scrollbar>
                     <Form layout="horizontal">
-                        <Collapse bordered={false}>
+                        <Collapse bordered={false} defaultActiveKey={['image']}>
                             {
                                 Object.keys(PropertyDefinition.map).map((key) => {
+                                    console.log("key is :::",key)
+                                    const headertitle = key === 'image' ? 'Insert Image' : PropertyDefinition.map[key].title
                                     return (
-                                        <Panel key={key} header={PropertyDefinition.map[key].title} showArrow={showArrow}>
+                                        <Panel key={key} header={headertitle} showArrow={showArrow}>
                                             {PropertyDefinition.map[key].component.render(canvasRef, form, canvasRef.handler.workarea)}
                                         </Panel>
                                     );
