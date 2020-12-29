@@ -409,6 +409,22 @@ class EventHandler {
                     }
                 
             }
+            else if (this.handler.interactionMode === 'measurewall') {
+                if (this.handler.pointArray.length && this.handler.activeLine) {
+                    this.handler.drawingHandler.measurewall.generate(event);
+                } else {
+                    this.handler.drawingHandler.measurewall.addPoint(event);
+                }
+            
+        }
+        else if (this.handler.interactionMode === 'measureroom') {
+            if (this.handler.pointArray.length && this.handler.activeLine) {
+                this.handler.drawingHandler.measureroom.generate(event);
+            } else {
+                this.handler.drawingHandler.measureroom.addPoint(event);
+            }
+        
+        }
             else if (this.handler.interactionMode === 'partition') {
                 if (this.handler.pointArray.length && this.handler.activeLine) {
                     this.handler.drawingHandler.partition.generate(event);
@@ -473,6 +489,20 @@ class EventHandler {
         }
         else if (this.handler.interactionMode === 'dottedline') {
             if (this.handler.activeLine && this.handler.activeLine.class === 'dottedline') {
+                const pointer = this.handler.canvas.getPointer(event.e);
+                this.handler.activeLine.set({ x2: pointer.x, y2: pointer.y });
+            }
+            this.handler.canvas.requestRenderAll();
+        }
+        else if (this.handler.interactionMode === 'measurewall') {
+            if (this.handler.activeLine && this.handler.activeLine.class === 'measurewall') {
+                const pointer = this.handler.canvas.getPointer(event.e);
+                this.handler.activeLine.set({ x2: pointer.x, y2: pointer.y });
+            }
+            this.handler.canvas.requestRenderAll();
+        }
+        else if (this.handler.interactionMode === 'measureroom') {
+            if (this.handler.activeLine && this.handler.activeLine.class === 'measureroom') {
                 const pointer = this.handler.canvas.getPointer(event.e);
                 this.handler.activeLine.set({ x2: pointer.x, y2: pointer.y });
             }
@@ -820,6 +850,10 @@ class EventHandler {
             } 
             else if (this.handler.interactionMode === 'dottedline') {
                 this.handler.drawingHandler.dottedline.finish();
+            }else if (this.handler.interactionMode === 'measureroom') {
+                this.handler.drawingHandler.measureroom.finish();
+            }else if (this.handler.interactionMode === 'measurewall') {
+                this.handler.drawingHandler.measurewall.finish();
             } else if (this.handler.interactionMode === 'link') {
                 this.handler.linkHandler.finish();
             }

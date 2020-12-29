@@ -90,7 +90,8 @@ class ImageMapEditor extends Component {
     dataSources: [],
     editing: false,
     descriptors: {},
-    openImageDragger: true
+    openImageDragger: true,
+    metaId: null
   };
 
   componentDidMount() {
@@ -137,6 +138,7 @@ class ImageMapEditor extends Component {
           console.log("Success:", data.meta);
           let length = data.meta.length - 1;
           let meta = data.meta[length].id;
+          console.log("meta is :::::>>>>>>>>>>>",meta);
           fetch(`https://nbk.synctactic.ai/meta/${meta}/`, requestOptions)
             .then((response) => response.json())
             .then((response) => {
@@ -150,6 +152,7 @@ class ImageMapEditor extends Component {
                 animations,
                 styles,
                 dataSources,
+                metaId:meta
               });
 
               if (objects) {
@@ -200,8 +203,17 @@ class ImageMapEditor extends Component {
         body: formdata,
         redirect: "follow",
       };
-      console.log("requestOptions ::", requestOptions);
-      fetch("https://nbk.synctactic.ai/meta/", requestOptions)
+
+      console.log("this.state.meta ::::",this.state.metaId);
+      if(this.state.metaId){
+        requestOptions = {
+          method: "PATCH",
+          headers: myHeaders,
+          body: formdata,
+          redirect: "follow",
+        };
+        console.log("requestOptions ::", requestOptions);
+        fetch(`https://nbk.synctactic.ai/meta/${this.state.metaId}/`, requestOptions)
         .then((response) => response.text())
         .then(
           (result) => console.log("Success:", result),
@@ -210,6 +222,18 @@ class ImageMapEditor extends Component {
           // window.location.href="/listingProjects"
         )
         .catch((error) => console.log("error", error));
+      }else{
+        console.log("requestOptions ::", requestOptions);
+        fetch("https://nbk.synctactic.ai/meta/", requestOptions)
+        .then((response) => response.text())
+        .then(
+          (result) => console.log("Success:", result),
+          // alert(''),
+          toast("Published Successfully")
+          // window.location.href="/listingProjects"
+        )
+        .catch((error) => console.log("error", error));
+      }
     } catch (e) {
       console.log(e);
     }
@@ -749,17 +773,17 @@ class ImageMapEditor extends Component {
         styles,
         dataSources,
       };
-      const anchorEl = document.createElement("a");
-      console.log("exportDatas is:::", exportDatas);
+      // const anchorEl = document.createElement("a");
+      //  console.log("exportDatas is:::", exportDatas);
       this.handlePublish(exportDatas);
-      anchorEl.href = `data:text/json;charset=utf-8,${encodeURIComponent(
-        JSON.stringify(exportDatas, null, "\t")
-      )}`;
-      anchorEl.download = `${this.canvasRef.handler.workarea.name ||
-        "sample"}.json`;
-      document.body.appendChild(anchorEl); // required for firefox
-      anchorEl.click();
-      anchorEl.remove();
+      // anchorEl.href = `data:text/json;charset=utf-8,${encodeURIComponent(
+      //   JSON.stringify(exportDatas, null, "\t")
+      // )}`;
+      // anchorEl.download = `${this.canvasRef.handler.workarea.name ||
+      //   "sample"}.json`;
+      // document.body.appendChild(anchorEl); // required for firefox
+      // anchorEl.click();
+      // anchorEl.remove();
       this.showLoading(false);
     },
     onChangeAnimations: (animations) => {

@@ -17,6 +17,8 @@ declare module 'fabric/fabric-impl' {
     class Partition {}
     class Link {}
     class DottedLine {}
+    class Measureroom {}
+    class Measurewall {}
     class CurvedLink {}
     class OrthogonalLink {}
 }

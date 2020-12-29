@@ -94,6 +94,14 @@ const Canvas1 = () => {
         strokewidth = 3;
         stroke = "#000000";
         dash = [5, 20];
+      } else if (tool === "Measure Room") {
+        strokewidth = 3;
+        stroke = "#000000";
+        dash = [5, 20];
+      } else if (tool === "Measure Wall") {
+        strokewidth = 3;
+        stroke = "#000000";
+        dash = [5, 20];
       }
       // lastLine.points = [pos.x, pos.y];
       startX = pos.x;

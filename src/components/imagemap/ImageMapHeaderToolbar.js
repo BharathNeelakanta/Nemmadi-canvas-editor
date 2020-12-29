@@ -65,6 +65,14 @@ class ImageMapHeaderToolbar extends Component {
                    console.log("heree")
                     canvasRef.handler.drawingHandler.dottedline.init();
             } 
+            else if (item.option.type === 'measureroom') {
+              console.log("heree")
+               canvasRef.handler.drawingHandler.measureroom.init();
+       } 
+       else if (item.option.type === 'measurewall') {
+        console.log("heree")
+         canvasRef.handler.drawingHandler.measurewall.init();
+ } 
             else if (item.option.type === 'partition') {
                 console.log("heree")
                  canvasRef.handler.drawingHandler.partition.init();
@@ -186,6 +194,10 @@ renderItem = (item, centered) => {
     color = 'DeepPink'
   }else if(item.name === 'Interior'){
     color = 'blue'
+  }else if(item.name === 'Measure Room'){
+    color = 'green'
+  }else if(item.name === 'Measure Wall'){
+    color = 'Navy'
   }else if(item.name === 'Partition'){
     color = 'grey'
     icon = 'ellipsis-h'

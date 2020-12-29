@@ -125,6 +125,12 @@ class ImageMapList extends Component {
                 else if (obj.type === 'dottedline') {
                     icon = 'image';
                 } 
+                else if (obj.type === 'measurewall') {
+                    icon = 'image';
+                } 
+                else if (obj.type === 'measureroom') {
+                    icon = 'image';
+                } 
                 else if (obj.type === 'partition') {
                     icon = 'image';
                 }  else if (obj.type === 'group')

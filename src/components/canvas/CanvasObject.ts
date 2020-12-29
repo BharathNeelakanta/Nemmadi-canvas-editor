@@ -12,7 +12,9 @@ import {
     CurvedLink,
     OrthogonalLink,
     Line,
-    DottedLine
+    DottedLine,
+    Measurewall,
+    Measureroom
 } from './objects';
 import { FabricObject } from './utils';
 import { Code } from './objects/Element';
@@ -67,6 +69,12 @@ const CanvasObject: CanvasObjectSchema = {
     },
     dottedline: {
         create: ({ points, ...option }: { points: any }) => new DottedLine(points, option),
+    },
+    measureroom: {
+        create: ({ points, ...option }: { points: any }) => new Measureroom(points, option),
+    },
+    measurewall: {
+        create: ({ points, ...option }: { points: any }) => new Measurewall(points, option),
     },
     arrow: {
         create: ({ points, ...option }: { points: any }) => new Arrow(points, option),

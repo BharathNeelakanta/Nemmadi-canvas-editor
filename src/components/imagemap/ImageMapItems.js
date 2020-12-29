@@ -145,6 +145,14 @@ class ImageMapItems extends Component {
                    console.log("heree")
                     canvasRef.handler.drawingHandler.dottedline.init();
             } 
+            else if (item.option.type === 'measureroom') {
+                console.log("heree")
+                 canvasRef.handler.drawingHandler.measureroom.init();
+         } 
+         else if (item.option.type === 'measurewall') {
+            console.log("heree")
+             canvasRef.handler.drawingHandler.measurewall.init();
+     } 
             else if (item.option.type === 'partition') {
                 console.log("heree")
                  canvasRef.handler.drawingHandler.partition.init();

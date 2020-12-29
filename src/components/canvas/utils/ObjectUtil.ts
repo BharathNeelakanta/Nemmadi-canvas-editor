@@ -238,7 +238,7 @@ export interface KeyEvent {
     transaction?: boolean;
 }
 
-export type InteractionMode = 'selection' | 'grab' | 'polygon' | 'line' | 'arrow' | 'link' | 'crop' | 'dottedline' | 'partition';
+export type InteractionMode = 'selection' | 'grab' | 'polygon' | 'line' | 'arrow' | 'link' | 'crop' | 'dottedline' | 'partition' | 'measureroom' | 'measurewall';
 
 export interface FabricEvent<T extends any = Event> extends Omit<fabric.IEvent, 'e'> {
 	e: T;

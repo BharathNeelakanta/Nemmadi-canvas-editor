@@ -58,6 +58,31 @@
         "type": "partition",
         "name": "Exterior Line"
       }
+    },
+    {
+      "name": "Measure Room",
+      "description": "",
+      "type": "drawing",
+      "icon": {
+        "prefix": "fas",
+        "name": "border-style"
+      },
+      "option": {
+        "type": "measureroom",
+        "name": "Measure Room"
+      }
+    },    {
+      "name": "Measure Wall",
+      "description": "",
+      "type": "drawing",
+      "icon": {
+        "prefix": "fas",
+        "name": "border-none"
+      },
+      "option": {
+        "type": "measurewall",
+        "name": "Measure Wall"
+      }
     }
   ]
 }

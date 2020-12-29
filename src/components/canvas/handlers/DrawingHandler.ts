@@ -3,7 +3,7 @@ import uuid from 'uuid';
 
 import Handler from './Handler';
 import { FabricEvent, FabricObject } from '../utils';
-import { Arrow, Line, DottedLine , Partition} from '../objects';
+import { Arrow, Line, DottedLine , Partition, Measurewall, Measureroom} from '../objects';
 // import { Partition } from 'fabric/fabric-impl';
 
 class DrawingHandler {
@@ -529,6 +529,175 @@ class DrawingHandler {
                 opacity: 1,
                 objectCaching: !this.handler.editable,
                 name: 'Exterior Line',
+                superType: 'drawing',
+            };
+            this.handler.add(option, false);
+            this.handler.pointArray = [];
+            this.handler.activeLine = null;
+            this.handler.modeHandler.selection();
+        },
+    }
+
+    measureroom = {
+        init: () => {
+            this.handler.modeHandler.drawing(null, 'measureroom');
+            this.handler.pointArray = [];
+            this.handler.activeLine = null;
+        },
+        finish: () => {
+            this.handler.pointArray.forEach(point => {
+                this.handler.canvas.remove(point);
+            });
+            this.handler.canvas.remove(this.handler.activeLine);
+            this.handler.pointArray = [];
+            this.handler.activeLine = null;
+            this.handler.canvas.renderAll();
+            this.handler.modeHandler.selection();
+        },
+        addPoint: (opt: FabricEvent) => {
+            const { absolutePointer } = opt;
+            const { x, y } = absolutePointer;
+            const circle = new fabric.Circle({
+                radius: 3,
+                fill: 'green',
+                stroke: 'green',
+                strokeWidth: 0.5,
+                left: x,
+                top: y,
+                selectable: false,
+                hasBorders: false,
+                hasControls: false,
+                originX: 'center',
+                originY: 'center',
+                hoverCursor: 'pointer',
+            });
+            if (!this.handler.pointArray.length) {
+                circle.set({
+                    fill: 'measureroom',
+                });
+            }
+            const points = [x, y, x, y];
+            this.handler.activeLine = new Measureroom(points, {
+                strokeWidth: 2,
+                fill: 'green',
+                stroke: 'green',
+                originX: 'center',
+                originY: 'center',
+                selectable: false,
+                hasBorders: false,
+                hasControls: false,
+                evented: false,
+            });
+            this.handler.activeLine.set({
+                class: 'measureroom',
+            });
+            this.handler.pointArray.push(circle);
+            this.handler.canvas.add(this.handler.activeLine);
+            this.handler.canvas.add(circle);
+        },
+        generate: (opt: FabricEvent) => {
+            const { absolutePointer } = opt;
+            const { x, y } = absolutePointer;
+            let points = [] as number[];
+            const id = uuid();
+            this.handler.pointArray.forEach(point => {
+                points = points.concat(point.left, point.top, x, y);
+                this.handler.canvas.remove(point);
+            });
+            this.handler.canvas.remove(this.handler.activeLine);
+            const option = {
+                id,
+                points,
+                type: 'measureroom',
+                stroke: 'green',
+                strokeWidth: 3,
+                opacity: 1,
+                objectCaching: !this.handler.editable,
+                name: 'Measure Room',
+                superType: 'drawing',
+            };
+            this.handler.add(option, false);
+            this.handler.pointArray = [];
+            this.handler.activeLine = null;
+            this.handler.modeHandler.selection();
+        },
+    }
+    measurewall = {
+        init: () => {
+            this.handler.modeHandler.drawing(null, 'measurewall');
+            this.handler.pointArray = [];
+            this.handler.activeLine = null;
+        },
+        finish: () => {
+            this.handler.pointArray.forEach(point => {
+                this.handler.canvas.remove(point);
+            });
+            this.handler.canvas.remove(this.handler.activeLine);
+            this.handler.pointArray = [];
+            this.handler.activeLine = null;
+            this.handler.canvas.renderAll();
+            this.handler.modeHandler.selection();
+        },
+        addPoint: (opt: FabricEvent) => {
+            const { absolutePointer } = opt;
+            const { x, y } = absolutePointer;
+            const circle = new fabric.Circle({
+                radius: 3,
+                fill: 'Navy',
+                stroke: 'Navy',
+                strokeWidth: 0.5,
+                left: x,
+                top: y,
+                selectable: false,
+                hasBorders: false,
+                hasControls: false,
+                originX: 'center',
+                originY: 'center',
+                hoverCursor: 'pointer',
+            });
+            if (!this.handler.pointArray.length) {
+                circle.set({
+                    fill: 'measurewall',
+                });
+            }
+            const points = [x, y, x, y];
+            this.handler.activeLine = new Measurewall(points, {
+                strokeWidth: 2,
+                fill: 'Navy',
+                stroke: 'Navy',
+                originX: 'center',
+                originY: 'center',
+                selectable: false,
+                hasBorders: false,
+                hasControls: false,
+                evented: false,
+            });
+            this.handler.activeLine.set({
+                class: 'measurewall',
+            });
+            this.handler.pointArray.push(circle);
+            this.handler.canvas.add(this.handler.activeLine);
+            this.handler.canvas.add(circle);
+        },
+        generate: (opt: FabricEvent) => {
+            const { absolutePointer } = opt;
+            const { x, y } = absolutePointer;
+            let points = [] as number[];
+            const id = uuid();
+            this.handler.pointArray.forEach(point => {
+                points = points.concat(point.left, point.top, x, y);
+                this.handler.canvas.remove(point);
+            });
+            this.handler.canvas.remove(this.handler.activeLine);
+            const option = {
+                id,
+                points,
+                type: 'measurewall',
+                stroke: 'Navy',
+                strokeWidth: 3,
+                opacity: 1,
+                objectCaching: !this.handler.editable,
+                name: 'Measure Wall',
                 superType: 'drawing',
             };
             this.handler.add(option, false);

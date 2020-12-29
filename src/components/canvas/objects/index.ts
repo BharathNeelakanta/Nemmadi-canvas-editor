@@ -12,5 +12,6 @@ export { default as Port } from './Port';
 export { default as Line } from './Line';
 export { default as DottedLine } from './DottedLine';
 export { default as Partition } from './Partition';
-
+export { default as Measureroom } from './RoomLine';
+export { default as Measurewall } from './WallLine';
 

@@ -167,6 +167,22 @@ canvas.on('selection:cleared',()=>{
         });
         canvas.add(line);
       }
+      else if(lineMode=='Measure Room'){
+        line = new fabric.Line(points, {
+          strokeWidth: 2,
+          stroke: "green",
+          
+        });
+        canvas.add(line);
+      }
+      else if(lineMode=='Measure Wall'){
+        line = new fabric.Line(points, {
+          strokeWidth: 2,
+          stroke: "green",
+          
+        });
+        canvas.add(line);
+      }
       }
       line.on("selected", () => {
         isSelected = true;
