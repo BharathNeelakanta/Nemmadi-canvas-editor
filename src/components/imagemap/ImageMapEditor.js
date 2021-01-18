@@ -148,6 +148,7 @@ class ImageMapEditor extends Component {
                 styles,
                 dataSources,
               } = response.dict;
+              console.log("response.dict is ::::",response.dict);
               this.setState({
                 animations,
                 styles,
@@ -897,16 +898,17 @@ class ImageMapEditor extends Component {
       <React.Fragment>
         <button type="button" class="btn btn-outline-secondary m-2" onClick = {goBack}>Back</button>
         <button type="button" class="btn btn-outline-secondary m-2" onClick = {onDownload}>Publish</button>
+        <button type="button" class="btn btn-outline-secondary m-2" onClick = {onSaveImage}>Download </button>
         {/* <CommonButton
           className="rde-action-btn"
           shape="circle"
           icon="file-download"
-          disabled={!editing}
+          // disabled={!editing}
           tooltipTitle={i18n.t("action.download")}
-          onClick={onDownload}
+          onClick={onSaveImage}
           tooltipPlacement="bottomRight"
-        />
-        {editing ? (
+        /> */}
+        {/* {editing ? (
           <Popconfirm
             title={i18n.t("imagemap.imagemap-editing-confirm")}
             okText={i18n.t("action.ok")}
